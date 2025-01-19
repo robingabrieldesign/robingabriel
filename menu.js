@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       const imgElement = document.createElement("img");
       const randomImageNumber = Math.floor(Math.random() * 50) + 1;
-      imgElement.src = `.robingabriel/MENUPHOTOS${randomImageNumber}.jpg`;
+      imgElement.src = `/MENUPHOTOS/img${randomImageNumber}.jpg`;
       img.appendChild(imgElement);
   
       gallery.appendChild(img);
