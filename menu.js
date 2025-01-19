@@ -1,8 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const imagesContainer = document.querySelector(".images");
-    const preview = document.querySelector(".preview");
+    const wrapper = document.querySelector(".wrapper");
     const minimap = document.querySelector(".minimap");
+    const images = document.querySelectorAll(".item");
   
+    // Add fade-in animation to wrapper
+    wrapper.classList.add("fade-in");
+  
+    // Add slide-in animation to minimap
+    minimap.classList.add("slide-in");
+  
+    // Add staggered animations to images
+    images.forEach((image, index) => {
+      setTimeout(() => {
+        image.classList.add("fade-in");
+      }, index * 200); // Stagger each image by 200ms
+    });
+  
+    // Existing scroll behavior
+    const preview = document.querySelector(".preview");
     function getElementTop(element) {
       let top = 0;
       while (element) {
@@ -12,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return top;
     }
   
+    const imagesContainer = document.querySelector(".images");
     const imagesStart = getElementTop(imagesContainer);
     const imagesEnd = imagesStart + imagesContainer.offsetHeight;
     const viewportHeight = window.innerHeight;
@@ -40,7 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("scroll", handleScroll);
   
     const togglePoint = window.innerHeight * 4;
-    const wrapper = document.querySelector(".wrapper");
   
     function checkScroll() {
       if (window.scrollY >= togglePoint) {

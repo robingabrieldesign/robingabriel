@@ -191,3 +191,30 @@
     }
   }
   
+  /* Animation styles */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 1s ease-out forwards;
+  }
+  
+  .slide-in {
+    opacity: 0;
+    transform: translateX(-20px);
+    animation: slideIn 1s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
