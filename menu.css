@@ -73,19 +73,6 @@
     transition: 0.5s background-color;
   }
   
-  .active-img-indicator {
-    position: absolute;
-    top: 300px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 125px;
-    border: 1.5px solid #fff;
-    border-radius: 4px;
-    mix-blend-mode: difference;
-    z-index: 2;
-  }
-  
   .preview {
     position: absolute;
     left: 50%;
