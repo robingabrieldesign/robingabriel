@@ -149,7 +149,7 @@
     a,
     p {
       font-size: 12px;
-      font-family: "Helvetica Neue Bold", sans-serif; /* Added this line */
+      font-family: "Helvetica Neue Bold", Arial, Helvetica, sans-serif; /* Added this line */
     }
   
     .container {
