@@ -143,11 +143,13 @@
   
     h1 {
       font-size: 36px;
+      font-family: "Helvetica Neue Bold", sans-serif; /* Added this line */
     }
   
     a,
     p {
       font-size: 12px;
+      font-family: "Helvetica Neue Bold", sans-serif; /* Added this line */
     }
   
     .container {
@@ -192,7 +194,7 @@
   }
   
   /* Animation styles */
-.fade-in {
+  .fade-in {
     opacity: 0;
     transform: translateY(20px);
     animation: fadeIn 1s ease-out forwards;
