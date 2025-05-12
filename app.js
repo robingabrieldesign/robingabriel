@@ -242,3 +242,4 @@ window.addEventListener('error', function(e) {
   console.error('Global error:', e.message);
   app.showError("An error occurred. Please try refreshing the page.");
 });
+
