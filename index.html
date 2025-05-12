@@ -4,12 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>3D Globe Experience</title>
+  <!-- VCR OSD Mono Font -->
+  <link href="https://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'VCR OSD Mono', monospace;
     }
     
     :root {
@@ -53,7 +55,6 @@
     
     #city {
       font-size: 14px;
-      font-weight: 300;
       opacity: 0.7;
     }
     
@@ -70,7 +71,6 @@
       color: var(--text-color);
       text-decoration: none;
       font-size: 14px;
-      font-weight: 700;
       letter-spacing: 1px;
       transition: opacity 0.3s;
     }
@@ -108,7 +108,6 @@
       left: 50%;
       transform: translateX(-50%);
       font-size: 14px;
-      font-weight: 300;
       opacity: 0.7;
       z-index: 10;
     }
@@ -165,14 +164,12 @@
     .modal-content h1 {
       font-size: 32px;
       margin-bottom: 20px;
-      font-weight: 700;
     }
     
     .modal-content p {
       font-size: 16px;
       line-height: 1.6;
       margin-bottom: 20px;
-      font-weight: 300;
     }
     
     .close-button {
@@ -297,12 +294,13 @@
           container.appendChild(renderer.domElement);
           
           // Add lights
-          const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
+          const ambientLight = new THREE.AmbientLight(0x404040, 0.5);
           scene.add(ambientLight);
           
-          const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-          directionalLight.position.set(5, 5, 5);
-          scene.add(directionalLight);
+          // Directional light for sun effect
+          const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+          sunLight.position.set(5, 3, 5);
+          scene.add(sunLight);
           
           // Add orbit controls
           controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -376,20 +374,20 @@
           const textureLoader = new THREE.TextureLoader();
           textureLoader.crossOrigin = "Anonymous";
           
-          // Create a simple globe with a dark color as a fallback
+          // Create a globe with a dark color as a base
           const globeGeometry = new THREE.SphereGeometry(1, 64, 64);
-          const globeMaterial = new THREE.MeshStandardMaterial({
-            color: 0x222222,
-            roughness: 0.8,
-            metalness: 0.2,
+          const globeMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffffff,
+            shininess: 5,
             displacementScale: 0.05
           });
           
           earth = new THREE.Mesh(globeGeometry, globeMaterial);
           globeGroup.add(earth);
           
-          // Try to load the texture and displacement map
+          // Try to load the textures
           Promise.all([
+            // Day texture (grayscale)
             new Promise((resolve) => {
               textureLoader.load(
                 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_atmos_2048.jpg',
@@ -421,11 +419,32 @@
                 },
                 undefined,
                 (error) => {
-                  console.error('Error loading texture:', error);
+                  console.error('Error loading day texture:', error);
                   resolve(); // Resolve anyway to continue
                 }
               );
             }),
+            
+            // Night lights texture
+            new Promise((resolve) => {
+              textureLoader.load(
+                'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_lights_2048.png',
+                (texture) => {
+                  globeMaterial.emissiveMap = texture;
+                  globeMaterial.emissive = new THREE.Color(0xffffff);
+                  globeMaterial.emissiveIntensity = 1;
+                  globeMaterial.needsUpdate = true;
+                  resolve();
+                },
+                undefined,
+                (error) => {
+                  console.error('Error loading night lights texture:', error);
+                  resolve(); // Resolve anyway to continue
+                }
+              );
+            }),
+            
+            // Displacement map for elevation
             new Promise((resolve) => {
               textureLoader.load(
                 'https://raw.githubusercontent.com/mrdoob/three.js/dev/examples/textures/planets/earth_normal_2048.jpg',
@@ -510,13 +529,13 @@
           
           // Create marker
           const markerGeometry = new THREE.SphereGeometry(0.01, 16, 16);
-          const markerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+          const markerMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
           const marker = new THREE.Mesh(markerGeometry, markerMaterial);
           
           // Create glow effect
           const glowGeometry = new THREE.SphereGeometry(0.015, 16, 16);
           const glowMaterial = new THREE.MeshBasicMaterial({ 
-            color: 0xffffff,
+            color: 0xff0000,
             transparent: true,
             opacity: 0.5
           });
@@ -741,12 +760,13 @@
             }
           }
           
+          // Location marker stays red in both themes
           if (locationMarker) {
             const marker = locationMarker.children[0];
             const glow = locationMarker.children[1];
             
-            marker.material.color.set(isLightTheme ? 0x000000 : 0xffffff);
-            glow.material.color.set(isLightTheme ? 0x000000 : 0xffffff);
+            marker.material.color.set(0xff0000);
+            glow.material.color.set(0xff0000);
           }
         } catch (error) {
           console.error("Error updating theme:", error);
