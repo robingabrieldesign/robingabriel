@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Globe Experience</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Loading screen -->
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <span>Loading globe...</span>
+  </div>
+  
+  <!-- Starry background canvas -->
+  <canvas id="starry-background"></canvas>
+  
+  <!-- Header navigation -->
+  <header id="header">
+    <nav id="nav">
+      <a href="#about" id="about-link">ABOUT</a>
+      <a href="#work" id="work-link">WORK</a>
+      <button id="theme-toggle">☀️</button>
+    </nav>
+  </header>
+  
+  <!-- Location and time info -->
+  <div id="location-info">
+    <p id="location">Loading location...</p>
+    <p id="time">--:--:--</p>
+  </div>
+  
+  <!-- Three.js container -->
+  <div id="canvas-container"></div>
+
+  <!-- Error message -->
+  <div id="error-message" class="error-message"></div>
+
+  <!-- About section -->
+  <div id="about-section" class="section">
+    <button class="close-button" id="close-about">×</button>
+    <div class="section-content">
+      <h1>About</h1>
+      <p>Welcome to my interactive 3D globe experience. This project showcases a stylized representation of Earth with real-time location tracking and time display.</p>
+      <p>The globe features a monochromatic design with a focus on the landmasses, surrounded by a subtle atmospheric glow against a starry background.</p>
+      <p>Built using Three.js, this interactive visualization detects your current location and displays it on the globe with a small green marker.</p>
+    </div>
+  </div>
+
+  <!-- Work section -->
+  <div id="work-section" class="section">
+    <button class="close-button" id="close-work">×</button>
+    <div class="section-content">
+      <h1>Work</h1>
+      <p>This section would typically showcase your portfolio or work examples.</p>
+      <p>You can customize this area to display your projects, achievements, or any other work-related content you'd like to share.</p>
+      <p>The minimalist design of this site allows your work to be the focal point, with the interactive globe serving as an engaging backdrop to your professional presentation.</p>
+    </div>
+  </div>
+
+  <!-- Focus on location button -->
+  <button id="focus-location" class="focus-button">
+    <span>Focus on My Location</span>
+  </button>
+  
+  <!-- Load Three.js libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <!-- Load our scripts -->
+  <script src="globe.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
