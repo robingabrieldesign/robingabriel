@@ -433,91 +433,103 @@
     background: white;
   }
   
-  /* Model Selection */
+  /* Model Selection - Improved Mobile */
   .model-selection {
     position: absolute;
-    bottom: 100px;
-    left: 50px;
+    bottom: 80px;
+    left: 20px;
     z-index: 10;
     display: flex;
-    gap: 20px;
+    gap: 15px;
   }
   
   .model-thumbnail {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border: 2px solid #ccc;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   }
   
   .model-thumbnail:hover {
     border-color: #000;
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
   }
   
   .model-thumbnail.active {
     border-color: #000;
     background: #000;
     color: #fff;
+    transform: translateY(-2px);
   }
   
-  /* Color Picker - positioned like in reference image */
+  /* Enhanced Color Picker */
   .color-picker-container {
     position: absolute;
-    top: 100px;
-    right: 50px;
+    top: 80px;
+    right: 20px;
     z-index: 10;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
     padding: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    border: 1px solid rgba(0, 0, 0, 0.08);
     cursor: move;
     user-select: none;
-    width: 240px;
+    width: 260px;
+    transition: all 0.3s ease;
   }
 
   .color-picker-container:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+    transform: translateY(-2px);
   }
 
   .color-picker-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
 
   .color-picker-title {
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 600;
     margin: 0;
+    color: #333;
   }
 
   .minimize-btn {
-    background: none;
+    background: rgba(0, 0, 0, 0.05);
     border: none;
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
-    padding: 5px;
-    border-radius: 3px;
-    transition: background 0.2s;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .minimize-btn:hover {
     background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
   }
 
   .color-picker-content {
@@ -530,106 +542,155 @@
 
   .color-picker-container.minimized {
     height: auto !important;
+    width: 200px;
   }
   
   .color-area {
     width: 100%;
-    height: 150px;
+    height: 160px;
     background: linear-gradient(to bottom, transparent, #000), 
                 linear-gradient(to right, #fff, #0f0);
-    border-radius: 10px;
+    border-radius: 12px;
     position: relative;
     cursor: crosshair;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
   .color-slider {
     width: 100%;
-    height: 20px;
+    height: 24px;
     background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-    border-radius: 10px;
+    border-radius: 12px;
     position: relative;
     cursor: pointer;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   }
   
   .color-thumb {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border: 3px solid #fff;
     border-radius: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
     pointer-events: none;
+    transition: all 0.2s ease;
+  }
+
+  .color-thumb:hover {
+    transform: translate(-50%, -50%) scale(1.1);
   }
   
   .color-preview {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-bottom: 25px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
   }
   
   .color-swatch {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    border: 2px solid #ccc;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #color-hex {
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
   }
   
-  /* Material Controls */
+  /* Enhanced Material Controls */
   .material-controls {
-    margin-top: 20px;
+    margin-top: 25px;
   }
   
   .material-controls h4 {
-    margin-bottom: 15px;
-    font-size: 14px;
-    font-weight: normal;
+    margin-bottom: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
   }
   
   .slider-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .slider-group:hover {
+    background: rgba(0, 0, 0, 0.04);
   }
   
   .slider-group label {
     display: block;
-    margin-bottom: 5px;
-    font-size: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
   
   .slider-container {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
   }
   
   .slider-container input[type="range"] {
     flex: 1;
-    height: 4px;
-    border-radius: 2px;
-    background: #ddd;
+    height: 6px;
+    border-radius: 3px;
+    background: #e0e0e0;
     outline: none;
     -webkit-appearance: none;
+    transition: all 0.2s ease;
+  }
+
+  .slider-container input[type="range"]:hover {
+    background: #d0d0d0;
   }
   
   .slider-container input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #000;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+  }
+
+  .slider-container input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
   }
   
   .slider-value {
-    min-width: 35px;
-    text-align: right;
-    font-size: 12px;
+    min-width: 40px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
   }
   
-  /* Responsive design */
+  /* Mobile Responsive Design - Much Smaller and More Consistent */
   @media (max-width: 768px) {
     /* Disable desktop split layout on mobile */
     #container.portfolio-mode,
@@ -642,27 +703,227 @@
     .contact-panel {
       display: none !important;
     }
+
+    /* Much smaller navigation */
+    #nav-container {
+      top: 15px;
+      right: 15px;
+    }
+
+    #brand-container {
+      margin-right: 15px;
+    }
+
+    #brand-title {
+      font-size: 13px;
+      padding: 6px 0;
+    }
+
+    #nav-menu {
+      padding: 10px;
+      min-width: 100px;
+      gap: 8px;
+    }
+
+    #nav-menu a {
+      font-size: 11px;
+      padding: 6px 0;
+    }
+
+    #location-info {
+      top: 15px;
+      left: 15px;
+    }
+
+    #city {
+      font-size: 11px;
+    }
+
+    #date-display {
+      bottom: 15px;
+      font-size: 11px;
+    }
     
+    /* Compact Color Picker for Mobile */
     .color-picker-container {
-      top: 50px;
-      right: 20px;
-      padding: 15px;
-      width: 180px;
+      top: 60px;
+      right: 10px;
+      padding: 12px;
+      width: 200px;
+      border-radius: 15px;
+    }
+
+    .color-picker-title {
+      font-size: 12px;
+    }
+
+    .minimize-btn {
+      font-size: 14px;
+      padding: 6px;
+      width: 26px;
+      height: 26px;
     }
     
     .color-area {
-      height: 120px;
+      height: 100px;
+      margin-bottom: 12px;
+    }
+
+    .color-slider {
+      height: 18px;
+      margin-bottom: 12px;
+    }
+
+    .color-thumb {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #fff;
+    }
+
+    .color-preview {
+      gap: 8px;
+      margin-bottom: 15px;
+      padding: 8px;
+    }
+
+    .color-swatch {
+      width: 30px;
+      height: 30px;
+    }
+
+    #color-hex {
+      font-size: 11px;
+    }
+
+    .material-controls h4 {
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
+
+    .slider-group {
+      margin-bottom: 12px;
+      padding: 10px;
+    }
+
+    .slider-group label {
+      font-size: 10px;
+      margin-bottom: 6px;
+    }
+
+    .slider-container {
+      gap: 8px;
+    }
+
+    .slider-container input[type="range"] {
+      height: 4px;
+    }
+
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+      width: 16px;
+      height: 16px;
+    }
+
+    .slider-value {
+      min-width: 32px;
+      font-size: 10px;
+      padding: 3px 6px;
     }
     
+    /* Smaller Model Selection */
     .model-selection {
-      bottom: 50px;
-      left: 20px;
+      bottom: 60px;
+      left: 10px;
+      gap: 10px;
     }
     
     .model-thumbnail {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
+      font-size: 9px;
+      border-radius: 8px;
+    }
+
+    /* Compact Modal for Mobile */
+    .modal {
+      padding: 20px 10px 10px;
+    }
+
+    .modal-content {
+      padding: 20px;
+      border-radius: 15px;
+    }
+
+    .modal-content h1 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .modal-content p {
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .portfolio-gallery {
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .portfolio-image {
+      margin-bottom: 15px;
+    }
+  }
+
+  /* Extra small mobile devices */
+  @media (max-width: 480px) {
+    .color-picker-container {
+      width: 180px;
+      padding: 10px;
+    }
+
+    .color-area {
+      height: 80px;
+    }
+
+    .model-thumbnail {
+      width: 45px;
+      height: 45px;
+      font-size: 8px;
+    }
+
+    #brand-title {
+      font-size: 12px;
+    }
+
+    #nav-menu a {
       font-size: 10px;
+    }
+  }
+
+  /* Touch improvements for mobile */
+  @media (hover: none) and (pointer: coarse) {
+    .color-picker-container {
+      cursor: default;
+    }
+
+    .model-thumbnail:hover {
+      transform: none;
+    }
+
+    .model-thumbnail:active {
+      transform: scale(0.95);
+    }
+
+    .slider-container input[type="range"]::-webkit-slider-thumb {
+      width: 24px;
+      height: 24px;
+    }
+
+    .minimize-btn:hover {
+      transform: none;
+    }
+
+    .minimize-btn:active {
+      transform: scale(0.9);
     }
   }
 </style>
@@ -706,7 +967,7 @@
     <div class="model-thumbnail" data-model="SL03">SL03</div>
   </div>
 
-  <!-- Color Picker -->
+  <!-- Enhanced Color Picker -->
   <div class="color-picker-container" id="color-picker-container">
     <div class="color-picker-header">
       <h4 class="color-picker-title">Color & Material</h4>
@@ -843,15 +1104,15 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
 
 <script>
-// 3D Design Application
+// 3D Design Application - Enhanced Version
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('3D Design page loaded');
+  console.log('Enhanced 3D Design page loaded');
   
   // Global variables
   let scene, camera, renderer, controls;
   let currentModel = null;
   let currentColor = new THREE.Color(0.8, 0.8, 0.8);
-  let hue = 120, saturation = 0.5, lightness = 0.7; // Start with a nice green
+  let hue = 120, saturation = 0.5, lightness = 0.7;
   let isMobile = window.innerWidth < 768;
   let isPortfolioOpen = false;
   let isContactOpen = false;
@@ -906,33 +1167,38 @@ document.addEventListener('DOMContentLoaded', () => {
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.2;
     
-    // Lighting setup for white background
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+    // Enhanced lighting setup
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
     
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
     directionalLight.position.set(5, 5, 5);
     directionalLight.castShadow = true;
     directionalLight.shadow.mapSize.width = 2048;
     directionalLight.shadow.mapSize.height = 2048;
     scene.add(directionalLight);
     
-    const rimLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
     rimLight.position.set(-5, 0, -5);
     scene.add(rimLight);
+
+    // Add fill light for better material visibility
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
+    fillLight.position.set(0, -5, 2);
+    scene.add(fillLight);
     
     // Controls
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.autoRotate = true;
-    controls.autoRotateSpeed = 0.5;
+    controls.autoRotateSpeed = 0.3;
     controls.enableZoom = true;
     controls.enablePan = false;
     controls.minDistance = 1;
     controls.maxDistance = 8;
     
-    console.log('Scene initialized');
+    console.log('Enhanced scene initialized');
   }
   
   function loadFBXModel(modelName) {
@@ -945,10 +1211,13 @@ document.addEventListener('DOMContentLoaded', () => {
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: rgba(255, 255, 255, 0.9);
-      padding: 20px;
-      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px 30px;
+      border-radius: 15px;
       z-index: 100;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      font-weight: 500;
     `;
     modelLoading.textContent = `Loading ${modelName}...`;
     document.body.appendChild(modelLoading);
@@ -975,17 +1244,17 @@ document.addEventListener('DOMContentLoaded', () => {
         currentModel = fbx;
         
         // Scale and position the model
-        currentModel.scale.setScalar(0.01); // Adjust scale as needed
+        currentModel.scale.setScalar(0.01);
         currentModel.position.set(0, -1, 0);
         
-        // Apply materials and colors
+        // Apply enhanced materials and colors
         currentModel.traverse((child) => {
           if (child.isMesh) {
-            // Create new material with current color
             child.material = new THREE.MeshStandardMaterial({
               color: currentColor,
               metalness: 0.1,
-              roughness: 0.6
+              roughness: 0.6,
+              envMapIntensity: 1.0
             });
             child.castShadow = true;
             child.receiveShadow = true;
@@ -993,8 +1262,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         scene.add(currentModel);
-        
-        // Hide main loading screen
         loadingElement.style.display = 'none';
         
         console.log(`${modelName} added to scene`);
@@ -1005,83 +1272,117 @@ document.addEventListener('DOMContentLoaded', () => {
       (error) => {
         console.error(`Error loading ${modelName}:`, error);
         
-        // Remove loading indicator
         if (document.body.contains(modelLoading)) {
           document.body.removeChild(modelLoading);
         }
         
-        // Create fallback geometry
-        console.log('Creating fallback geometry');
-        createFallbackModel(modelName);
-        
-        // Hide main loading screen
+        console.log('Creating enhanced fallback geometry');
+        createEnhancedFallbackModel(modelName);
         loadingElement.style.display = 'none';
       }
     );
   }
   
-  function createFallbackModel(modelName) {
-    // Create a fallback shoe-like model if FBX fails to load
+  function createEnhancedFallbackModel(modelName) {
     const group = new THREE.Group();
     
     if (modelName === 'SL02') {
-      // Create a futuristic shoe with holes (like in reference image)
-      const mainGeometry = new THREE.CapsuleGeometry(0.4, 2.0, 8, 16);
+      // Enhanced futuristic shoe with better geometry
+      const mainGeometry = new THREE.CapsuleGeometry(0.4, 2.0, 12, 24);
       const mainMaterial = new THREE.MeshStandardMaterial({
         color: currentColor,
         metalness: 0.1,
-        roughness: 0.6
+        roughness: 0.6,
+        envMapIntensity: 1.0
       });
       const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
       mainMesh.rotation.z = Math.PI / 2;
-      mainMesh.position.set(0, 0, 0);
       mainMesh.scale.set(1, 1, 0.7);
       group.add(mainMesh);
       
-      // Add holes/perforations
-      for (let i = 0; i < 8; i++) {
-        const holeGeometry = new THREE.CylinderGeometry(0.08, 0.08, 0.6, 8);
+      // Enhanced perforations with better positioning
+      for (let i = 0; i < 12; i++) {
+        const holeGeometry = new THREE.CylinderGeometry(0.06, 0.06, 0.6, 8);
         const holeMaterial = new THREE.MeshStandardMaterial({
-          color: 0x000000,
-          transparent: true,
-          opacity: 0
+          color: 0x222222,
+          metalness: 0.8,
+          roughness: 0.2
         });
         const hole = new THREE.Mesh(holeGeometry, holeMaterial);
+        
+        const angle = (i / 12) * Math.PI * 2;
         hole.position.set(
-          -0.8 + (i * 0.25),
-          Math.sin(i * 0.5) * 0.2,
-          Math.cos(i * 0.8) * 0.3
+          Math.cos(angle) * 0.3,
+          Math.sin(angle) * 0.15,
+          Math.sin(i * 0.8) * 0.2
         );
         hole.rotation.x = Math.PI / 2;
         group.add(hole);
       }
       
+      // Add sole detail
+      const soleGeometry = new THREE.BoxGeometry(2.2, 0.15, 0.8);
+      const soleMaterial = new THREE.MeshStandardMaterial({
+        color: 0x333333,
+        metalness: 0.1,
+        roughness: 0.9
+      });
+      const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+      sole.position.set(0, -0.4, 0);
+      group.add(sole);
+      
     } else if (modelName === 'SL03') {
-      // Create a different style shoe
-      const bootGeometry = new THREE.CylinderGeometry(0.35, 0.4, 2.2, 8);
+      // Enhanced boot-style shoe
+      const bootGeometry = new THREE.CylinderGeometry(0.35, 0.4, 2.2, 12);
       const bootMaterial = new THREE.MeshStandardMaterial({
         color: currentColor,
         metalness: 0.05,
-        roughness: 0.8
+        roughness: 0.8,
+        envMapIntensity: 0.8
       });
       const bootMesh = new THREE.Mesh(bootGeometry, bootMaterial);
       bootMesh.rotation.z = Math.PI / 2;
       bootMesh.position.set(0, 0.1, 0);
       bootMesh.scale.set(1, 1, 0.75);
       group.add(bootMesh);
+
+      // Enhanced sole with texture
+      const soleGeometry = new THREE.BoxGeometry(2.4, 0.2, 0.8);
+      const soleMaterial = new THREE.MeshStandardMaterial({
+        color: 0x2a2a2a,
+        metalness: 0.1,
+        roughness: 0.95
+      });
+      const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+      sole.position.set(0, -0.5, 0);
+      group.add(sole);
+
+      // Add lace details
+      for (let i = 0; i < 6; i++) {
+        const laceGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3, 6);
+        const laceMaterial = new THREE.MeshStandardMaterial({
+          color: 0x444444,
+          metalness: 0.2,
+          roughness: 0.8
+        });
+        const lace = new THREE.Mesh(laceGeometry, laceMaterial);
+        lace.position.set(-0.6 + (i * 0.2), 0.2, 0.35);
+        lace.rotation.x = Math.PI / 2;
+        group.add(lace);
+      }
     }
     
     currentModel = group;
     scene.add(currentModel);
     
-    console.log(`Fallback model ${modelName} created`);
+    console.log(`Enhanced fallback model ${modelName} created`);
   }
   
   function updateModelMaterial() {
     if (!currentModel) return;
     
     currentModel.traverse((child) => {
-      if (child.isMesh && child.material) {
+      if (child.isMesh && child.material && child.material.color) {
         child.material.color.copy(currentColor);
         child.material.needsUpdate = true;
       }
@@ -1133,20 +1434,32 @@ document.addEventListener('DOMContentLoaded', () => {
       return { r: r + m, g: g + m, b: b + m };
     }
     
-    // Color area events
-    colorArea.addEventListener('mousedown', (e) => {
+    // Enhanced color area events with better touch support
+    function handleAreaStart(e) {
       isDraggingArea = true;
       updateAreaColor(e);
-    });
+      e.preventDefault();
+    }
     
-    colorArea.addEventListener('mousemove', (e) => {
-      if (isDraggingArea) updateAreaColor(e);
-    });
+    function handleAreaMove(e) {
+      if (isDraggingArea) {
+        updateAreaColor(e);
+        e.preventDefault();
+      }
+    }
+    
+    colorArea.addEventListener('mousedown', handleAreaStart);
+    colorArea.addEventListener('touchstart', handleAreaStart);
+    colorArea.addEventListener('mousemove', handleAreaMove);
+    colorArea.addEventListener('touchmove', handleAreaMove);
     
     function updateAreaColor(e) {
       const rect = colorArea.getBoundingClientRect();
-      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-      const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      
+      const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
       
       saturation = x;
       lightness = 1 - y;
@@ -1157,24 +1470,33 @@ document.addEventListener('DOMContentLoaded', () => {
       updateColor();
     }
     
-    // Color slider events
-    colorSlider.addEventListener('mousedown', (e) => {
+    // Enhanced slider events with better touch support
+    function handleSliderStart(e) {
       isDraggingSlider = true;
       updateSliderColor(e);
-    });
+      e.preventDefault();
+    }
     
-    colorSlider.addEventListener('mousemove', (e) => {
-      if (isDraggingSlider) updateSliderColor(e);
-    });
+    function handleSliderMove(e) {
+      if (isDraggingSlider) {
+        updateSliderColor(e);
+        e.preventDefault();
+      }
+    }
+    
+    colorSlider.addEventListener('mousedown', handleSliderStart);
+    colorSlider.addEventListener('touchstart', handleSliderStart);
+    colorSlider.addEventListener('mousemove', handleSliderMove);
+    colorSlider.addEventListener('touchmove', handleSliderMove);
     
     function updateSliderColor(e) {
       const rect = colorSlider.getBoundingClientRect();
-      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const x = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
       
       hue = x * 360;
       sliderThumb.style.left = (x * 100) + '%';
       
-      // Update area background
       const hslColor = `hsl(${hue}, 100%, 50%)`;
       colorArea.style.background = `linear-gradient(to bottom, transparent, #000), linear-gradient(to right, #fff, ${hslColor})`;
       
@@ -1186,12 +1508,16 @@ document.addEventListener('DOMContentLoaded', () => {
       isDraggingSlider = false;
     });
     
-    // Initialize positions - start with green like in reference
-    sliderThumb.style.left = '33%'; // Green position
+    document.addEventListener('touchend', () => {
+      isDraggingArea = false;
+      isDraggingSlider = false;
+    });
+    
+    // Initialize with better starting position
+    sliderThumb.style.left = '33%';
     areaThumb.style.left = '50%';
     areaThumb.style.top = '30%';
     
-    // Update area background for initial hue
     const hslColor = `hsl(${hue}, 100%, 50%)`;
     colorArea.style.background = `linear-gradient(to bottom, transparent, #000), linear-gradient(to right, #fff, ${hslColor})`;
     
@@ -1206,6 +1532,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const metalnessSlider = document.getElementById('metalness-slider');
     const metalnessValue = document.getElementById('metalness-value');
     
+    // Enhanced transparency control with better visual feedback
     transparencySlider.addEventListener('input', (e) => {
       const value = parseInt(e.target.value);
       transparencyValue.textContent = value + '%';
@@ -1221,6 +1548,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    // Enhanced smoothness control
     smoothnessSlider.addEventListener('input', (e) => {
       const value = parseInt(e.target.value);
       smoothnessValue.textContent = value + '%';
@@ -1235,6 +1563,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
     
+    // Enhanced metalness control
     metalnessSlider.addEventListener('input', (e) => {
       const value = parseInt(e.target.value);
       metalnessValue.textContent = value + '%';
@@ -1255,20 +1584,16 @@ document.addEventListener('DOMContentLoaded', () => {
     
     thumbnails.forEach(thumbnail => {
       thumbnail.addEventListener('click', () => {
-        // Remove active class from all thumbnails
         thumbnails.forEach(t => t.classList.remove('active'));
-        
-        // Add active class to clicked thumbnail
         thumbnail.classList.add('active');
         
-        // Load the selected model
         const modelName = thumbnail.dataset.model;
         loadFBXModel(modelName);
       });
     });
   }
   
-  // Show contact in desktop layout
+  // Enhanced desktop layout functions
   function showContactDesktop() {
     if (isMobile) {
       createContactModal();
@@ -1276,34 +1601,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    console.log('Showing contact desktop');
-    
-    // Close other panels
     if (isPortfolioOpen) hidePortfolioDesktop();
     
     isContactOpen = true;
     container.classList.add('contact-mode');
     contactPanel.classList.add('active');
     
-    // Adjust renderer size for split view
     camera.aspect = (window.innerWidth * 0.5) / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
   }
   
-  // Hide contact desktop layout
   function hideContactDesktop() {
     isContactOpen = false;
     container.classList.remove('contact-mode');
     contactPanel.classList.remove('active');
     
-    // Reset renderer size
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
   
-  // Show portfolio in desktop layout
   function showPortfolioDesktop() {
     if (isMobile) {
       createWorkModal();
@@ -1311,33 +1629,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    console.log('Showing portfolio desktop');
-    
-    // Close other panels
     if (isContactOpen) hideContactDesktop();
     
     isPortfolioOpen = true;
     container.classList.add('portfolio-mode');
     portfolioPanel.classList.add('active');
     
-    // Adjust renderer size for split view
     camera.aspect = (window.innerWidth * 0.5) / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth * 0.5, window.innerHeight);
   }
   
-  // Hide portfolio desktop layout
   function hidePortfolioDesktop() {
     isPortfolioOpen = false;
     container.classList.remove('portfolio-mode');
     portfolioPanel.classList.remove('active');
     
-    // Reset renderer size
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    // Reset portfolio state
     document.getElementById('portfolio-password-section').style.display = 'block';
     document.getElementById('portfolio-content').style.display = 'none';
     document.getElementById('portfolio-password').value = '';
@@ -1345,21 +1656,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function initEventListeners() {
-    // Back to home button
     backHome.addEventListener('click', () => {
       window.location.href = 'index.html';
     });
     
-    // Window resize
     window.addEventListener('resize', onWindowResize);
     
-    // Mouse move for hover effect
     document.addEventListener('mousemove', (e) => {
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
     
-    // Navigation menu hover
     const brandContainer = document.getElementById('brand-container');
     if (window.innerWidth > 768) {
       let hoverTimeout;
@@ -1391,7 +1698,7 @@ document.addEventListener('DOMContentLoaded', () => {
       brandContainer.classList.remove('active');
     });
     
-    // Brand title click for mobile
+    // Enhanced mobile navigation
     const brandTitle = document.getElementById('brand-title');
     if (isMobile) {
       brandTitle.addEventListener('click', (e) => {
@@ -1406,7 +1713,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     
-    // Portfolio password handling
+    // Enhanced portfolio password handling
     const portfolioPassword = document.getElementById('portfolio-password');
     const portfolioSubmit = document.getElementById('portfolio-submit');
     const portfolioError = document.getElementById('portfolio-error');
@@ -1420,6 +1727,11 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         portfolioError.style.display = 'block';
         portfolioPassword.value = '';
+        // Add shake animation for better UX
+        portfolioError.style.animation = 'shake 0.5s ease-in-out';
+        setTimeout(() => {
+          portfolioError.style.animation = '';
+        }, 500);
       }
     }
     
@@ -1439,7 +1751,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function onWindowResize() {
+    const wasMobile = isMobile;
     isMobile = window.innerWidth < 768;
+    
+    // Handle mobile/desktop transition
+    if (wasMobile !== isMobile) {
+      if (isMobile && (isPortfolioOpen || isContactOpen)) {
+        hideContactDesktop();
+        hidePortfolioDesktop();
+      }
+    }
     
     if ((isPortfolioOpen || isContactOpen) && !isMobile) {
       camera.aspect = (window.innerWidth * 0.5) / window.innerHeight;
@@ -1494,7 +1815,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function createContactModal() {
-    // Check if modal already exists
     if (document.getElementById('contact-modal')) return;
     
     const modal = document.createElement('div');
@@ -1535,7 +1855,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function createWorkModal() {
-    // Check if modal already exists
     if (document.getElementById('work-modal')) return;
     
     const modal = document.createElement('div');
@@ -1575,6 +1894,31 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_18 Large.jpeg" alt="Portfolio Page 18" class="portfolio-image">
             <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_19 Large.jpeg" alt="Portfolio Page 19" class="portfolio-image">
             <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_20 Large.jpeg" alt="Portfolio Page 20" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_21 Large.jpeg" alt="Portfolio Page 21" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_22 Large.jpeg" alt="Portfolio Page 22" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_23 Large.jpeg" alt="Portfolio Page 23" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_24 Large.jpeg" alt="Portfolio Page 24" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_25 Large.jpeg" alt="Portfolio Page 25" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_26 Large.jpeg" alt="Portfolio Page 26" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_27 Large.jpeg" alt="Portfolio Page 27" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_28 Large.jpeg" alt="Portfolio Page 28" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_29 Large.jpeg" alt="Portfolio Page 29" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_30 Large.jpeg" alt="Portfolio Page 30" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_31 Large.jpeg" alt="Portfolio Page 31" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_32 Large.jpeg" alt="Portfolio Page 32" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_33 Large.jpeg" alt="Portfolio Page 33" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_34 Large.jpeg" alt="Portfolio Page 34" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_35 Large.jpeg" alt="Portfolio Page 35" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_36 Large.jpeg" alt="Portfolio Page 36" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_37 Large.jpeg" alt="Portfolio Page 37" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_38 Large.jpeg" alt="Portfolio Page 38" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_39 Large.jpeg" alt="Portfolio Page 39" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_40 Large.jpeg" alt="Portfolio Page 40" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_41 Large.jpeg" alt="Portfolio Page 41" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_42 Large.jpeg" alt="Portfolio Page 42" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_43 Large.jpeg" alt="Portfolio Page 43" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_44 Large.jpeg" alt="Portfolio Page 44" class="portfolio-image">
+            <img src="PORTFOLIO/ROBIN_USC_PORTFOLIO_Page_45 Large.jpeg" alt="Portfolio Page 45" class="portfolio-image">
           </div>
         </div>
       </div>
@@ -1629,41 +1973,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let xOffset = 0;
     let yOffset = 0;
 
-    // Minimize/maximize functionality
+    // Enhanced minimize/maximize functionality
     minimizeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       colorPicker.classList.toggle('minimized');
       minimizeBtn.textContent = colorPicker.classList.contains('minimized') ? '+' : '−';
     });
 
-    // Dragging functionality
+    // Enhanced dragging functionality with touch support
     colorPicker.addEventListener('mousedown', dragStart);
+    colorPicker.addEventListener('touchstart', dragStart);
     document.addEventListener('mousemove', drag);
+    document.addEventListener('touchmove', drag);
     document.addEventListener('mouseup', dragEnd);
+    document.addEventListener('touchend', dragEnd);
 
     function dragStart(e) {
-      // Only allow dragging from the header area
       if (e.target.closest('.color-picker-header')) {
-        initialX = e.clientX - xOffset;
-        initialY = e.clientY - yOffset;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        initialX = clientX - xOffset;
+        initialY = clientY - yOffset;
 
         if (e.target === colorPicker || e.target.closest('.color-picker-header')) {
           isDragging = true;
           colorPicker.style.cursor = 'grabbing';
         }
+        e.preventDefault();
       }
     }
 
     function drag(e) {
       if (isDragging) {
         e.preventDefault();
-        currentX = e.clientX - initialX;
-        currentY = e.clientY - initialY;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        currentX = clientX - initialX;
+        currentY = clientY - initialY;
 
         xOffset = currentX;
         yOffset = currentY;
 
-        // Keep within viewport bounds
+        // Enhanced boundary checking
         const rect = colorPicker.getBoundingClientRect();
         const maxX = window.innerWidth - rect.width;
         const maxY = window.innerHeight - rect.height;
@@ -1683,6 +2036,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+// Add shake animation for error feedback
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+  }
+`;
+document.head.appendChild(style);
 </script>
 </body>
 </html>
+
