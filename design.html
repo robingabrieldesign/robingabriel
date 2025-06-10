@@ -489,7 +489,6 @@
     user-select: none;
     width: 260px;
     transition: all 0.3s ease;
-    overflow: hidden;
   }
 
   .color-picker-container:hover {
@@ -526,7 +525,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-shrink: 0;
   }
 
   .minimize-btn:hover {
@@ -536,19 +534,15 @@
 
   .color-picker-content {
     transition: all 0.3s ease;
-    overflow: hidden;
   }
 
   .color-picker-container.minimized .color-picker-content {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-    padding-top: 0;
+    display: none;
   }
 
   .color-picker-container.minimized {
+    height: auto !important;
     width: 200px;
-    padding-bottom: 20px;
   }
   
   .color-area {
@@ -653,7 +647,6 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 8px;
   }
   
   .slider-container input[type="range"] {
@@ -695,50 +688,6 @@
     background: rgba(0, 0, 0, 0.05);
     padding: 4px 8px;
     border-radius: 6px;
-  }
-
-  /* Midpoint Controls */
-  .midpoint-controls {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-top: 8px;
-  }
-
-  .midpoint-label {
-    font-size: 11px;
-    color: #666;
-    min-width: 60px;
-  }
-
-  .midpoint-slider {
-    flex: 1;
-    height: 4px;
-    border-radius: 2px;
-    background: linear-gradient(to right, #333 0%, #666 50%, #999 100%);
-    outline: none;
-    -webkit-appearance: none;
-  }
-
-  .midpoint-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ff6b35;
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
-  }
-
-  .midpoint-value {
-    min-width: 30px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 500;
-    color: #666;
-    background: rgba(255, 107, 53, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
   }
   
   /* Mobile Responsive Design - Much Smaller and More Consistent */
@@ -795,18 +744,13 @@
       font-size: 11px;
     }
     
-    /* Compact Color Picker for Mobile - FIXED MINIMIZE */
+    /* Compact Color Picker for Mobile */
     .color-picker-container {
       top: 60px;
       right: 10px;
       padding: 12px;
       width: 200px;
       border-radius: 15px;
-    }
-
-    .color-picker-container.minimized {
-      width: 160px;
-      padding-bottom: 12px;
     }
 
     .color-picker-title {
@@ -884,31 +828,6 @@
       font-size: 10px;
       padding: 3px 6px;
     }
-
-    .midpoint-controls {
-      gap: 6px;
-      margin-top: 6px;
-    }
-
-    .midpoint-label {
-      font-size: 9px;
-      min-width: 50px;
-    }
-
-    .midpoint-slider {
-      height: 3px;
-    }
-
-    .midpoint-slider::-webkit-slider-thumb {
-      width: 12px;
-      height: 12px;
-    }
-
-    .midpoint-value {
-      min-width: 25px;
-      font-size: 9px;
-      padding: 1px 4px;
-    }
     
     /* Smaller Model Selection */
     .model-selection {
@@ -959,10 +878,6 @@
     .color-picker-container {
       width: 180px;
       padding: 10px;
-    }
-
-    .color-picker-container.minimized {
-      width: 140px;
     }
 
     .color-area {
@@ -1074,15 +989,18 @@
         <h4>Material Properties</h4>
         
         <div class="slider-group">
+          <label>Transparency</label>
+          <div class="slider-container">
+            <input type="range" id="transparency-slider" min="0" max="100" value="0">
+            <span class="slider-value" id="transparency-value">0%</span>
+          </div>
+        </div>
+        
+        <div class="slider-group">
           <label>Smoothness</label>
           <div class="slider-container">
             <input type="range" id="smoothness-slider" min="0" max="100" value="50">
             <span class="slider-value" id="smoothness-value">50%</span>
-          </div>
-          <div class="midpoint-controls">
-            <span class="midpoint-label">Midpoint:</span>
-            <input type="range" class="midpoint-slider" id="smoothness-midpoint" min="0" max="100" value="50">
-            <span class="midpoint-value" id="smoothness-midpoint-value">50%</span>
           </div>
         </div>
         
@@ -1091,11 +1009,6 @@
           <div class="slider-container">
             <input type="range" id="metalness-slider" min="0" max="100" value="0">
             <span class="slider-value" id="metalness-value">0%</span>
-          </div>
-          <div class="midpoint-controls">
-            <span class="midpoint-label">Midpoint:</span>
-            <input type="range" class="midpoint-slider" id="metalness-midpoint" min="0" max="100" value="50">
-            <span class="midpoint-value" id="metalness-midpoint-value">50%</span>
           </div>
         </div>
       </div>
@@ -1191,9 +1104,9 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
 
 <script>
-// 3D Design Application - Enhanced Version with Midpoint Controls
+// 3D Design Application - Enhanced Version
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Enhanced 3D Design page loaded with midpoint controls');
+  console.log('Enhanced 3D Design page loaded');
   
   // Global variables
   let scene, camera, renderer, controls;
@@ -1203,12 +1116,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let isMobile = window.innerWidth < 768;
   let isPortfolioOpen = false;
   let isContactOpen = false;
-  
-  // Material property variables with midpoints
-  let materialProperties = {
-    smoothness: { value: 50, midpoint: 50 },
-    metalness: { value: 0, midpoint: 50 }
-  };
   
   // DOM elements
   const loadingElement = document.getElementById('loading');
@@ -1340,13 +1247,13 @@ document.addEventListener('DOMContentLoaded', () => {
         currentModel.scale.setScalar(0.01);
         currentModel.position.set(0, -1, 0);
         
-        // Apply enhanced materials and colors with midpoint support
+        // Apply enhanced materials and colors
         currentModel.traverse((child) => {
           if (child.isMesh) {
             child.material = new THREE.MeshStandardMaterial({
               color: currentColor,
-              metalness: calculateMidpointValue(materialProperties.metalness.value, materialProperties.metalness.midpoint) / 100,
-              roughness: 1 - (calculateMidpointValue(materialProperties.smoothness.value, materialProperties.smoothness.midpoint) / 100),
+              metalness: 0.1,
+              roughness: 0.6,
               envMapIntensity: 1.0
             });
             child.castShadow = true;
@@ -1376,22 +1283,6 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
   
-  // Calculate midpoint-adjusted value
-  function calculateMidpointValue(value, midpoint) {
-    // Adjust the value based on the midpoint
-    // This creates a curve where the midpoint acts as the 50% mark
-    const normalizedValue = value / 100;
-    const normalizedMidpoint = midpoint / 100;
-    
-    if (normalizedValue <= 0.5) {
-      // Map 0-0.5 to 0-midpoint
-      return (normalizedValue * 2) * normalizedMidpoint * 100;
-    } else {
-      // Map 0.5-1 to midpoint-1
-      return (normalizedMidpoint + ((normalizedValue - 0.5) * 2) * (1 - normalizedMidpoint)) * 100;
-    }
-  }
-  
   function createEnhancedFallbackModel(modelName) {
     const group = new THREE.Group();
     
@@ -1400,8 +1291,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const mainGeometry = new THREE.CapsuleGeometry(0.4, 2.0, 12, 24);
       const mainMaterial = new THREE.MeshStandardMaterial({
         color: currentColor,
-        metalness: calculateMidpointValue(materialProperties.metalness.value, materialProperties.metalness.midpoint) / 100,
-        roughness: 1 - (calculateMidpointValue(materialProperties.smoothness.value, materialProperties.smoothness.midpoint) / 100),
+        metalness: 0.1,
+        roughness: 0.6,
         envMapIntensity: 1.0
       });
       const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
@@ -1445,8 +1336,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const bootGeometry = new THREE.CylinderGeometry(0.35, 0.4, 2.2, 12);
       const bootMaterial = new THREE.MeshStandardMaterial({
         color: currentColor,
-        metalness: calculateMidpointValue(materialProperties.metalness.value, materialProperties.metalness.midpoint) / 100,
-        roughness: 1 - (calculateMidpointValue(materialProperties.smoothness.value, materialProperties.smoothness.midpoint) / 100),
+        metalness: 0.05,
+        roughness: 0.8,
         envMapIntensity: 0.8
       });
       const bootMesh = new THREE.Mesh(bootGeometry, bootMaterial);
@@ -1493,15 +1384,6 @@ document.addEventListener('DOMContentLoaded', () => {
     currentModel.traverse((child) => {
       if (child.isMesh && child.material && child.material.color) {
         child.material.color.copy(currentColor);
-        
-        // Apply midpoint-adjusted material properties
-        if (child.material.metalness !== undefined) {
-          child.material.metalness = calculateMidpointValue(materialProperties.metalness.value, materialProperties.metalness.midpoint) / 100;
-        }
-        if (child.material.roughness !== undefined) {
-          child.material.roughness = 1 - (calculateMidpointValue(materialProperties.smoothness.value, materialProperties.smoothness.midpoint) / 100);
-        }
-        
         child.material.needsUpdate = true;
       }
     });
@@ -1643,50 +1525,57 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function initMaterialControls() {
-    // Smoothness controls
+    const transparencySlider = document.getElementById('transparency-slider');
+    const transparencyValue = document.getElementById('transparency-value');
     const smoothnessSlider = document.getElementById('smoothness-slider');
     const smoothnessValue = document.getElementById('smoothness-value');
-    const smoothnessMidpoint = document.getElementById('smoothness-midpoint');
-    const smoothnessMidpointValue = document.getElementById('smoothness-midpoint-value');
-    
-    // Metalness controls
     const metalnessSlider = document.getElementById('metalness-slider');
     const metalnessValue = document.getElementById('metalness-value');
-    const metalnessMidpoint = document.getElementById('metalness-midpoint');
-    const metalnessMidpointValue = document.getElementById('metalness-midpoint-value');
     
-    // Enhanced smoothness control with midpoint
+    // Enhanced transparency control with better visual feedback
+    transparencySlider.addEventListener('input', (e) => {
+      const value = parseInt(e.target.value);
+      transparencyValue.textContent = value + '%';
+      
+      if (currentModel) {
+        currentModel.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.transparent = value > 0;
+            child.material.opacity = 1 - (value / 100);
+            child.material.needsUpdate = true;
+          }
+        });
+      }
+    });
+    
+    // Enhanced smoothness control
     smoothnessSlider.addEventListener('input', (e) => {
       const value = parseInt(e.target.value);
       smoothnessValue.textContent = value + '%';
-      materialProperties.smoothness.value = value;
       
-      updateModelMaterial();
+      if (currentModel) {
+        currentModel.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.roughness = 1 - (value / 100);
+            child.material.needsUpdate = true;
+          }
+        });
+      }
     });
     
-    smoothnessMidpoint.addEventListener('input', (e) => {
-      const value = parseInt(e.target.value);
-      smoothnessMidpointValue.textContent = value + '%';
-      materialProperties.smoothness.midpoint = value;
-      
-      updateModelMaterial();
-    });
-    
-    // Enhanced metalness control with midpoint
+    // Enhanced metalness control
     metalnessSlider.addEventListener('input', (e) => {
       const value = parseInt(e.target.value);
       metalnessValue.textContent = value + '%';
-      materialProperties.metalness.value = value;
       
-      updateModelMaterial();
-    });
-    
-    metalnessMidpoint.addEventListener('input', (e) => {
-      const value = parseInt(e.target.value);
-      metalnessMidpointValue.textContent = value + '%';
-      materialProperties.metalness.midpoint = value;
-      
-      updateModelMaterial();
+      if (currentModel) {
+        currentModel.traverse((child) => {
+          if (child.isMesh && child.material) {
+            child.material.metalness = value / 100;
+            child.material.needsUpdate = true;
+          }
+        });
+      }
     });
   }
   
@@ -2084,7 +1973,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let xOffset = 0;
     let yOffset = 0;
 
-    // Enhanced minimize/maximize functionality - FIXED FOR MOBILE
+    // Enhanced minimize/maximize functionality
     minimizeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       colorPicker.classList.toggle('minimized');
@@ -2161,3 +2050,4 @@ document.head.appendChild(style);
 </script>
 </body>
 </html>
+
