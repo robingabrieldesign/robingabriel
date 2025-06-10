@@ -489,6 +489,8 @@
     user-select: none;
     width: 260px;
     transition: all 0.3s ease;
+    max-height: 600px;
+    overflow: hidden;
   }
 
   .color-picker-container:hover {
@@ -525,6 +527,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    touch-action: manipulation;
   }
 
   .minimize-btn:hover {
@@ -533,15 +536,21 @@
   }
 
   .color-picker-content {
-    transition: all 0.3s ease;
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 1;
   }
 
   .color-picker-container.minimized .color-picker-content {
-    display: none;
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
   }
 
   .color-picker-container.minimized {
-    height: auto !important;
+    max-height: 70px;
     width: 200px;
   }
   
@@ -609,7 +618,7 @@
     color: #333;
   }
   
-  /* Enhanced Material Controls */
+  /* Enhanced Material Controls - NO TRANSPARENCY */
   .material-controls {
     margin-top: 25px;
   }
@@ -690,7 +699,7 @@
     border-radius: 6px;
   }
   
-  /* Mobile Responsive Design - Much Smaller and More Consistent */
+  /* Mobile Responsive Design - Fixed for All Resolutions */
   @media (max-width: 768px) {
     /* Disable desktop split layout on mobile */
     #container.portfolio-mode,
@@ -744,13 +753,19 @@
       font-size: 11px;
     }
     
-    /* Compact Color Picker for Mobile */
+    /* Fixed Color Picker for Mobile - All Resolutions */
     .color-picker-container {
       top: 60px;
       right: 10px;
       padding: 12px;
       width: 200px;
       border-radius: 15px;
+      max-height: 400px;
+    }
+
+    .color-picker-container.minimized {
+      max-height: 60px;
+      width: 160px;
     }
 
     .color-picker-title {
@@ -762,6 +777,9 @@
       padding: 6px;
       width: 26px;
       height: 26px;
+      /* Ensure touch works properly */
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
     }
     
     .color-area {
@@ -873,11 +891,17 @@
     }
   }
 
-  /* Extra small mobile devices */
+  /* Extra small mobile devices (320px - 480px) */
   @media (max-width: 480px) {
     .color-picker-container {
       width: 180px;
       padding: 10px;
+      max-height: 350px;
+    }
+
+    .color-picker-container.minimized {
+      max-height: 55px;
+      width: 140px;
     }
 
     .color-area {
@@ -896,6 +920,30 @@
 
     #nav-menu a {
       font-size: 10px;
+    }
+  }
+
+  /* Very small devices (below 360px) */
+  @media (max-width: 360px) {
+    .color-picker-container {
+      width: 160px;
+      padding: 8px;
+      max-height: 300px;
+    }
+
+    .color-picker-container.minimized {
+      max-height: 50px;
+      width: 120px;
+    }
+
+    .color-picker-title {
+      font-size: 11px;
+    }
+
+    .minimize-btn {
+      width: 24px;
+      height: 24px;
+      font-size: 12px;
     }
   }
 
@@ -920,10 +968,12 @@
 
     .minimize-btn:hover {
       transform: none;
+      background: rgba(0, 0, 0, 0.05);
     }
 
     .minimize-btn:active {
       transform: scale(0.9);
+      background: rgba(0, 0, 0, 0.15);
     }
   }
 </style>
@@ -967,7 +1017,7 @@
     <div class="model-thumbnail" data-model="SL03">SL03</div>
   </div>
 
-  <!-- Enhanced Color Picker -->
+  <!-- Enhanced Color Picker - NO TRANSPARENCY -->
   <div class="color-picker-container" id="color-picker-container">
     <div class="color-picker-header">
       <h4 class="color-picker-title">Color & Material</h4>
@@ -987,14 +1037,6 @@
       
       <div class="material-controls">
         <h4>Material Properties</h4>
-        
-        <div class="slider-group">
-          <label>Transparency</label>
-          <div class="slider-container">
-            <input type="range" id="transparency-slider" min="0" max="100" value="0">
-            <span class="slider-value" id="transparency-value">0%</span>
-          </div>
-        </div>
         
         <div class="slider-group">
           <label>Smoothness</label>
@@ -1104,9 +1146,9 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
 
 <script>
-// 3D Design Application - Enhanced Version
+// 3D Design Application - Enhanced Version (NO TRANSPARENCY)
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Enhanced 3D Design page loaded');
+  console.log('Enhanced 3D Design page loaded - No Transparency');
   
   // Global variables
   let scene, camera, renderer, controls;
@@ -1131,6 +1173,7 @@ document.addEventListener('DOMContentLoaded', () => {
   init();
   
   function init() {
+    checkMobile();
     initScene();
     initColorPicker();
     initMaterialControls();
@@ -1143,6 +1186,11 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFBXModel('SL02');
     
     animate();
+  }
+  
+  function checkMobile() {
+    isMobile = window.innerWidth < 768;
+    console.log(`Device detected as ${isMobile ? 'mobile' : 'desktop'}`);
   }
   
   function initScene() {
@@ -1247,14 +1295,16 @@ document.addEventListener('DOMContentLoaded', () => {
         currentModel.scale.setScalar(0.01);
         currentModel.position.set(0, -1, 0);
         
-        // Apply enhanced materials and colors
+        // Apply enhanced materials and colors (NO TRANSPARENCY)
         currentModel.traverse((child) => {
           if (child.isMesh) {
             child.material = new THREE.MeshStandardMaterial({
               color: currentColor,
               metalness: 0.1,
               roughness: 0.6,
-              envMapIntensity: 1.0
+              envMapIntensity: 1.0,
+              transparent: false,  // NO TRANSPARENCY
+              opacity: 1.0         // ALWAYS OPAQUE
             });
             child.castShadow = true;
             child.receiveShadow = true;
@@ -1293,7 +1343,9 @@ document.addEventListener('DOMContentLoaded', () => {
         color: currentColor,
         metalness: 0.1,
         roughness: 0.6,
-        envMapIntensity: 1.0
+        envMapIntensity: 1.0,
+        transparent: false,  // NO TRANSPARENCY
+        opacity: 1.0         // ALWAYS OPAQUE
       });
       const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
       mainMesh.rotation.z = Math.PI / 2;
@@ -1306,7 +1358,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const holeMaterial = new THREE.MeshStandardMaterial({
           color: 0x222222,
           metalness: 0.8,
-          roughness: 0.2
+          roughness: 0.2,
+          transparent: false,  // NO TRANSPARENCY
+          opacity: 1.0         // ALWAYS OPAQUE
         });
         const hole = new THREE.Mesh(holeGeometry, holeMaterial);
         
@@ -1325,7 +1379,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const soleMaterial = new THREE.MeshStandardMaterial({
         color: 0x333333,
         metalness: 0.1,
-        roughness: 0.9
+        roughness: 0.9,
+        transparent: false,  // NO TRANSPARENCY
+        opacity: 1.0         // ALWAYS OPAQUE
       });
       const sole = new THREE.Mesh(soleGeometry, soleMaterial);
       sole.position.set(0, -0.4, 0);
@@ -1338,7 +1394,9 @@ document.addEventListener('DOMContentLoaded', () => {
         color: currentColor,
         metalness: 0.05,
         roughness: 0.8,
-        envMapIntensity: 0.8
+        envMapIntensity: 0.8,
+        transparent: false,  // NO TRANSPARENCY
+        opacity: 1.0         // ALWAYS OPAQUE
       });
       const bootMesh = new THREE.Mesh(bootGeometry, bootMaterial);
       bootMesh.rotation.z = Math.PI / 2;
@@ -1351,7 +1409,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const soleMaterial = new THREE.MeshStandardMaterial({
         color: 0x2a2a2a,
         metalness: 0.1,
-        roughness: 0.95
+        roughness: 0.95,
+        transparent: false,  // NO TRANSPARENCY
+        opacity: 1.0         // ALWAYS OPAQUE
       });
       const sole = new THREE.Mesh(soleGeometry, soleMaterial);
       sole.position.set(0, -0.5, 0);
@@ -1363,7 +1423,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const laceMaterial = new THREE.MeshStandardMaterial({
           color: 0x444444,
           metalness: 0.2,
-          roughness: 0.8
+          roughness: 0.8,
+          transparent: false,  // NO TRANSPARENCY
+          opacity: 1.0         // ALWAYS OPAQUE
         });
         const lace = new THREE.Mesh(laceGeometry, laceMaterial);
         lace.position.set(-0.6 + (i * 0.2), 0.2, 0.35);
@@ -1525,28 +1587,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function initMaterialControls() {
-    const transparencySlider = document.getElementById('transparency-slider');
-    const transparencyValue = document.getElementById('transparency-value');
+    // NO TRANSPARENCY CONTROLS - REMOVED COMPLETELY
     const smoothnessSlider = document.getElementById('smoothness-slider');
     const smoothnessValue = document.getElementById('smoothness-value');
     const metalnessSlider = document.getElementById('metalness-slider');
     const metalnessValue = document.getElementById('metalness-value');
-    
-    // Enhanced transparency control with better visual feedback
-    transparencySlider.addEventListener('input', (e) => {
-      const value = parseInt(e.target.value);
-      transparencyValue.textContent = value + '%';
-      
-      if (currentModel) {
-        currentModel.traverse((child) => {
-          if (child.isMesh && child.material) {
-            child.material.transparent = value > 0;
-            child.material.opacity = 1 - (value / 100);
-            child.material.needsUpdate = true;
-          }
-        });
-      }
-    });
     
     // Enhanced smoothness control
     smoothnessSlider.addEventListener('input', (e) => {
@@ -1752,7 +1797,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   function onWindowResize() {
     const wasMobile = isMobile;
-    isMobile = window.innerWidth < 768;
+    checkMobile();
     
     // Handle mobile/desktop transition
     if (wasMobile !== isMobile) {
@@ -1973,33 +2018,42 @@ document.addEventListener('DOMContentLoaded', () => {
     let xOffset = 0;
     let yOffset = 0;
 
-    // Enhanced minimize/maximize functionality
+    // Enhanced minimize/maximize functionality - FIXED FOR MOBILE
     minimizeBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      colorPicker.classList.toggle('minimized');
-      minimizeBtn.textContent = colorPicker.classList.contains('minimized') ? '+' : '−';
+      e.preventDefault();
+      
+      const isMinimized = colorPicker.classList.contains('minimized');
+      
+      if (isMinimized) {
+        colorPicker.classList.remove('minimized');
+        minimizeBtn.textContent = '−';
+        console.log('Color picker expanded');
+      } else {
+        colorPicker.classList.add('minimized');
+        minimizeBtn.textContent = '+';
+        console.log('Color picker minimized');
+      }
     });
 
     // Enhanced dragging functionality with touch support
     colorPicker.addEventListener('mousedown', dragStart);
-    colorPicker.addEventListener('touchstart', dragStart);
+    colorPicker.addEventListener('touchstart', dragStart, { passive: false });
     document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag);
+    document.addEventListener('touchmove', drag, { passive: false });
     document.addEventListener('mouseup', dragEnd);
     document.addEventListener('touchend', dragEnd);
 
     function dragStart(e) {
-      if (e.target.closest('.color-picker-header')) {
+      if (e.target.closest('.color-picker-header') && !e.target.closest('.minimize-btn')) {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
         
         initialX = clientX - xOffset;
         initialY = clientY - yOffset;
 
-        if (e.target === colorPicker || e.target.closest('.color-picker-header')) {
-          isDragging = true;
-          colorPicker.style.cursor = 'grabbing';
-        }
+        isDragging = true;
+        colorPicker.style.cursor = 'grabbing';
         e.preventDefault();
       }
     }
@@ -2050,4 +2104,3 @@ document.head.appendChild(style);
 </script>
 </body>
 </html>
-
