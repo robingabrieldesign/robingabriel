@@ -17,16 +17,47 @@
     --background-color: #ffffff;
     --accent-color: #000000;
     --hover-color: rgba(200, 200, 200, 0.3);
-    --transition-speed: 0.5s;
+    --transition-speed: 0.6s;
   }
   
   body {
     background-color: var(--background-color);
     color: var(--text-color);
     overflow: hidden;
-    transition: all var(--transition-speed) ease;
     width: 100vw;
     height: 100vh;
+  }
+  
+  /* Main Container with Slide Transitions */
+  #main-container {
+    position: relative;
+    width: 200vw;
+    height: 100vh;
+    display: flex;
+    transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(0);
+  }
+  
+  #main-container.show-product {
+    transform: translateX(-100vw);
+  }
+  
+  /* Menu Screen */
+  #menu-screen {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Product Screen */
+  #product-screen {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
   }
   
   #container {
@@ -165,12 +196,72 @@
     transform: rotate(-180deg);
   }
   
+  /* Back to menu button */
+  #back-to-menu {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #back-to-menu.visible {
+    display: flex;
+  }
+  
+  #back-to-menu:hover {
+    transform: rotate(-180deg);
+  }
+  
   .back-icon {
     width: 18px;
     height: 18px;
     stroke: var(--text-color);
     fill: none;
     transition: all var(--transition-speed) ease;
+  }
+  
+  /* Menu Content */
+  .menu-content {
+    text-align: center;
+    margin-top: -40px;
+  }
+  
+  .menu-title {
+    font-size: 48px;
+    font-weight: normal;
+    margin-bottom: 60px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  
+  .shoe-grid {
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .shoe-option {
+    font-size: 72px;
+    font-weight: normal;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+    user-select: none;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .shoe-option:hover {
+    opacity: 1;
+    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.05);
   }
   
   #date-display {
@@ -433,273 +524,147 @@
     background: white;
   }
   
-  /* Model Selection - Improved Mobile */
-  .model-selection {
+  /* Horizontal Color & Material Panel - Above Date Display */
+  .color-material-panel {
     position: absolute;
-    bottom: 80px;
-    left: 20px;
-    z-index: 10;
-    display: flex;
-    gap: 15px;
-  }
-  
-  .model-thumbnail {
-    width: 70px;
-    height: 70px;
-    border: 2px solid #ccc;
-    border-radius: 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: bold;
-    transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(15px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .model-thumbnail:hover {
-    border-color: #000;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-  }
-  
-  .model-thumbnail.active {
-    border-color: #000;
-    background: #000;
-    color: #fff;
-    transform: translateY(-2px);
-  }
-  
-  /* Enhanced Color Picker */
-  .color-picker-container {
-    position: absolute;
-    top: 80px;
-    right: 20px;
-    z-index: 10;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
     background: rgba(255, 255, 255, 0.98);
     backdrop-filter: blur(20px);
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px 25px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    cursor: move;
-    user-select: none;
-    width: 260px;
-    transition: all 0.3s ease;
-    max-height: 600px;
-    overflow: hidden;
-  }
-
-  .color-picker-container:hover {
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
-    transform: translateY(-2px);
-  }
-
-  .color-picker-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 18px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .color-picker-title {
-    font-size: 15px;
-    font-weight: 600;
-    margin: 0;
-    color: #333;
-  }
-
-  .minimize-btn {
-    background: rgba(0, 0, 0, 0.05);
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 8px;
-    border-radius: 8px;
-    transition: all 0.2s;
-    width: 32px;
-    height: 32px;
+    z-index: 10;
     display: flex;
     align-items: center;
-    justify-content: center;
-    touch-action: manipulation;
+    gap: 25px;
+    max-width: 95vw;
+    overflow-x: auto;
+    min-height: 60px;
   }
 
-  .minimize-btn:hover {
-    background: rgba(0, 0, 0, 0.1);
-    transform: scale(1.1);
+  /* Color Section */
+  .color-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+    flex-shrink: 0;
   }
 
-  .color-picker-content {
-    max-height: 500px;
-    overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.3s ease;
-    opacity: 1;
-  }
-
-  .color-picker-container.minimized .color-picker-content {
-    max-height: 0;
-    opacity: 0;
-    margin-top: 0;
-    padding-top: 0;
-  }
-
-  .color-picker-container.minimized {
-    max-height: 70px;
-    width: 200px;
-  }
-  
   .color-area {
-    width: 100%;
-    height: 160px;
+    width: 50px;
+    height: 50px;
     background: linear-gradient(to bottom, transparent, #000), 
                 linear-gradient(to right, #fff, #0f0);
-    border-radius: 12px;
+    border-radius: 8px;
     position: relative;
     cursor: crosshair;
-    margin-bottom: 18px;
     box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
   }
-  
+
   .color-slider {
-    width: 100%;
-    height: 24px;
+    width: 80px;
+    height: 16px;
     background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
-    border-radius: 12px;
+    border-radius: 8px;
     position: relative;
     cursor: pointer;
-    margin-bottom: 18px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
   }
-  
+
   .color-thumb {
-    width: 22px;
-    height: 22px;
-    border: 3px solid #fff;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #fff;
     border-radius: 50%;
     position: absolute;
     transform: translate(-50%, -50%);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     pointer-events: none;
-    transition: all 0.2s ease;
   }
 
-  .color-thumb:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-  }
-  
-  .color-preview {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 25px;
-    padding: 12px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 10px;
-  }
-  
   .color-swatch {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
     border: 2px solid rgba(0, 0, 0, 0.1);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
   }
 
-  #color-hex {
-    font-family: 'Courier New', monospace;
-    font-weight: 600;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  /* Enhanced Material Controls - NO TRANSPARENCY */
-  .material-controls {
-    margin-top: 25px;
-  }
-  
-  .material-controls h4 {
-    margin-bottom: 20px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .slider-group {
-    margin-bottom: 20px;
-    padding: 15px;
-    background: rgba(0, 0, 0, 0.02);
-    border-radius: 12px;
-    transition: all 0.2s ease;
-  }
-
-  .slider-group:hover {
-    background: rgba(0, 0, 0, 0.04);
-  }
-  
-  .slider-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    color: #555;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  
-  .slider-container {
+  /* Material Controls */
+  .material-section {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
+    flex-shrink: 0;
   }
-  
-  .slider-container input[type="range"] {
-    flex: 1;
-    height: 6px;
-    border-radius: 3px;
+
+  .control-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 100px;
+  }
+
+  .control-label {
+    font-size: 10px;
+    font-weight: 500;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 55px;
+    white-space: nowrap;
+  }
+
+  .control-slider {
+    width: 60px;
+    height: 4px;
+    border-radius: 2px;
     background: #e0e0e0;
     outline: none;
     -webkit-appearance: none;
-    transition: all 0.2s ease;
+    cursor: pointer;
   }
 
-  .slider-container input[type="range"]:hover {
-    background: #d0d0d0;
-  }
-  
-  .slider-container input[type="range"]::-webkit-slider-thumb {
+  .control-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: #000;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 
-  .slider-container input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.1);
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+  .control-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #000;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
-  
-  .slider-value {
-    min-width: 40px;
-    text-align: center;
-    font-size: 13px;
+
+  .control-value {
+    font-size: 9px;
     font-weight: 600;
     color: #333;
     background: rgba(0, 0, 0, 0.05);
-    padding: 4px 8px;
-    border-radius: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    min-width: 28px;
+    text-align: center;
+    white-space: nowrap;
   }
   
-  /* Mobile Responsive Design - Fixed for All Resolutions */
+  /* Mobile Responsive Design */
   @media (max-width: 768px) {
     /* Disable desktop split layout on mobile */
     #container.portfolio-mode,
@@ -713,7 +678,7 @@
       display: none !important;
     }
 
-    /* Much smaller navigation */
+    /* Smaller navigation */
     #nav-container {
       top: 15px;
       right: 15px;
@@ -753,307 +718,266 @@
       font-size: 11px;
     }
     
-    /* Fixed Color Picker for Mobile - All Resolutions */
-    .color-picker-container {
-      top: 60px;
-      right: 10px;
-      padding: 12px;
-      width: 200px;
-      border-radius: 15px;
-      max-height: 400px;
-    }
-
-    .color-picker-container.minimized {
-      max-height: 60px;
-      width: 160px;
-    }
-
-    .color-picker-title {
-      font-size: 12px;
-    }
-
-    .minimize-btn {
-      font-size: 14px;
-      padding: 6px;
-      width: 26px;
-      height: 26px;
-      /* Ensure touch works properly */
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
+    .menu-title {
+      font-size: 32px;
+      margin-bottom: 40px;
     }
     
+    .shoe-grid {
+      gap: 40px;
+    }
+    
+    .shoe-option {
+      font-size: 48px;
+    }
+    
+    /* Mobile Color & Material Panel */
+    .color-material-panel {
+      bottom: 50px;
+      padding: 10px 15px;
+      gap: 15px;
+      border-radius: 15px;
+      max-width: 98vw;
+      min-height: 50px;
+    }
+
+    .color-section {
+      gap: 8px;
+      min-width: 140px;
+    }
+
     .color-area {
-      height: 100px;
-      margin-bottom: 12px;
+      width: 35px;
+      height: 35px;
     }
 
     .color-slider {
-      height: 18px;
-      margin-bottom: 12px;
+      width: 60px;
+      height: 12px;
     }
 
     .color-thumb {
-      width: 16px;
-      height: 16px;
-      border: 2px solid #fff;
-    }
-
-    .color-preview {
-      gap: 8px;
-      margin-bottom: 15px;
-      padding: 8px;
+      width: 10px;
+      height: 10px;
+      border: 1px solid #fff;
     }
 
     .color-swatch {
+      width: 20px;
+      height: 20px;
+    }
+
+    .material-section {
+      gap: 12px;
+    }
+
+    .control-group {
+      gap: 6px;
+      min-width: 80px;
+    }
+
+    .control-label {
+      font-size: 8px;
+      min-width: 45px;
+    }
+
+    .control-slider {
+      width: 45px;
+      height: 3px;
+    }
+
+    .control-slider::-webkit-slider-thumb {
+      width: 10px;
+      height: 10px;
+    }
+
+    .control-value {
+      font-size: 8px;
+      padding: 1px 4px;
+      min-width: 22px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .shoe-grid {
+      gap: 25px;
+    }
+
+    .shoe-option {
+      font-size: 36px;
+    }
+    
+    /* Extra small mobile adjustments */
+    .color-material-panel {
+      bottom: 45px;
+      padding: 8px 12px;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .color-section {
+      gap: 6px;
+      min-width: 120px;
+    }
+
+    .color-area {
       width: 30px;
       height: 30px;
     }
 
-    #color-hex {
-      font-size: 11px;
+    .color-slider {
+      width: 50px;
+      height: 10px;
     }
 
-    .material-controls h4 {
-      font-size: 12px;
-      margin-bottom: 12px;
+    .color-swatch {
+      width: 18px;
+      height: 18px;
     }
 
-    .slider-group {
-      margin-bottom: 12px;
-      padding: 10px;
-    }
-
-    .slider-group label {
-      font-size: 10px;
-      margin-bottom: 6px;
-    }
-
-    .slider-container {
+    .material-section {
       gap: 8px;
     }
 
-    .slider-container input[type="range"] {
-      height: 4px;
+    .control-group {
+      gap: 4px;
+      min-width: 70px;
     }
 
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-      width: 16px;
-      height: 16px;
+    .control-label {
+      font-size: 7px;
+      min-width: 35px;
     }
 
-    .slider-value {
-      min-width: 32px;
-      font-size: 10px;
-      padding: 3px 6px;
-    }
-    
-    /* Smaller Model Selection */
-    .model-selection {
-      bottom: 60px;
-      left: 10px;
-      gap: 10px;
-    }
-    
-    .model-thumbnail {
-      width: 50px;
-      height: 50px;
-      font-size: 9px;
-      border-radius: 8px;
+    .control-slider {
+      width: 35px;
     }
 
-    /* Compact Modal for Mobile */
-    .modal {
-      padding: 20px 10px 10px;
-    }
-
-    .modal-content {
-      padding: 20px;
-      border-radius: 15px;
-    }
-
-    .modal-content h1 {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
-
-    .modal-content p {
-      font-size: 14px;
-      margin-bottom: 15px;
-    }
-
-    .portfolio-gallery {
-      padding: 15px;
-      margin-top: 15px;
-    }
-
-    .portfolio-image {
-      margin-bottom: 15px;
+    .control-value {
+      font-size: 7px;
+      min-width: 18px;
     }
   }
 
-  /* Extra small mobile devices (320px - 480px) */
-  @media (max-width: 480px) {
-    .color-picker-container {
-      width: 180px;
-      padding: 10px;
-      max-height: 350px;
-    }
-
-    .color-picker-container.minimized {
-      max-height: 55px;
-      width: 140px;
-    }
-
-    .color-area {
-      height: 80px;
-    }
-
-    .model-thumbnail {
-      width: 45px;
-      height: 45px;
-      font-size: 8px;
-    }
-
-    #brand-title {
-      font-size: 12px;
-    }
-
-    #nav-menu a {
-      font-size: 10px;
-    }
-  }
-
-  /* Very small devices (below 360px) */
+  /* Very small devices */
   @media (max-width: 360px) {
-    .color-picker-container {
-      width: 160px;
+    .color-material-panel {
+      flex-direction: column;
+      gap: 8px;
       padding: 8px;
-      max-height: 300px;
+      bottom: 40px;
     }
 
-    .color-picker-container.minimized {
-      max-height: 50px;
-      width: 120px;
-    }
-
-    .color-picker-title {
-      font-size: 11px;
-    }
-
-    .minimize-btn {
-      width: 24px;
-      height: 24px;
-      font-size: 12px;
-    }
-  }
-
-  /* Touch improvements for mobile */
-  @media (hover: none) and (pointer: coarse) {
-    .color-picker-container {
-      cursor: default;
-    }
-
-    .model-thumbnail:hover {
-      transform: none;
-    }
-
-    .model-thumbnail:active {
-      transform: scale(0.95);
-    }
-
-    .slider-container input[type="range"]::-webkit-slider-thumb {
-      width: 24px;
-      height: 24px;
-    }
-
-    .minimize-btn:hover {
-      transform: none;
-      background: rgba(0, 0, 0, 0.05);
-    }
-
-    .minimize-btn:active {
-      transform: scale(0.9);
-      background: rgba(0, 0, 0, 0.15);
+    .color-section,
+    .material-section {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
 </head>
 <body>
-<div id="container">
-  <div id="location-info">
-    <div id="city">Loading location...</div>
-  </div>
 
-  <div id="nav-container">
-    <div id="brand-container">
-      <div id="brand-title">Robin Gabriel Design</div>
-      <div id="nav-menu">
-        <a href="#contact">CONTACT</a>
-        <a href="#work">PRIVATE PORTFOLIO</a>
-        <a href="index.html">HOME</a>
-      </div>
+<div id="loading">
+  <div class="spinner"></div>
+  <div>Loading 3D Design...</div>
+</div>
+
+<div id="main-container">
+  <!-- Menu Screen -->
+  <div id="menu-screen">
+    <div id="location-info">
+      <div id="city">Loading location...</div>
     </div>
-    <button id="back-home" aria-label="Back to home">
-      <svg class="back-icon" viewBox="0 0 24 24" width="18" height="18">
-        <path d="M19 12H5"></path>
-        <path d="M12 19l-7-7 7-7"></path>
-      </svg>
-    </button>
-  </div>
 
-  <div id="date-display"></div>
-
-  <div id="loading">
-    <div class="spinner"></div>
-    <div>Loading 3D Design...</div>
-  </div>
-
-  <!-- 3D Canvas -->
-  <canvas id="model-canvas"></canvas>
-
-  <!-- Model Selection -->
-  <div class="model-selection">
-    <div class="model-thumbnail active" data-model="SL02">SL02</div>
-    <div class="model-thumbnail" data-model="SL03">SL03</div>
-  </div>
-
-  <!-- Enhanced Color Picker - NO TRANSPARENCY -->
-  <div class="color-picker-container" id="color-picker-container">
-    <div class="color-picker-header">
-      <h4 class="color-picker-title">Color & Material</h4>
-      <button class="minimize-btn" id="minimize-btn">−</button>
-    </div>
-    <div class="color-picker-content">
-      <div class="color-area" id="color-area">
-        <div class="color-thumb" id="area-thumb"></div>
-      </div>
-      <div class="color-slider" id="color-slider">
-        <div class="color-thumb" id="slider-thumb"></div>
-      </div>
-      <div class="color-preview">
-        <div class="color-swatch" id="color-swatch"></div>
-        <span id="color-hex">#FFFFFF</span>
-      </div>
-      
-      <div class="material-controls">
-        <h4>Material Properties</h4>
-        
-        <div class="slider-group">
-          <label>Smoothness</label>
-          <div class="slider-container">
-            <input type="range" id="smoothness-slider" min="0" max="100" value="50">
-            <span class="slider-value" id="smoothness-value">50%</span>
-          </div>
-        </div>
-        
-        <div class="slider-group">
-          <label>Metalness</label>
-          <div class="slider-container">
-            <input type="range" id="metalness-slider" min="0" max="100" value="0">
-            <span class="slider-value" id="metalness-value">0%</span>
-          </div>
+    <div id="nav-container">
+      <div id="brand-container">
+        <div id="brand-title">Robin Gabriel Design</div>
+        <div id="nav-menu">
+          <a href="#contact">CONTACT</a>
+          <a href="#work">PRIVATE PORTFOLIO</a>
+          <a href="index.html">HOME</a>
         </div>
       </div>
+      <button id="back-home" aria-label="Back to home">
+        <svg class="back-icon" viewBox="0 0 24 24" width="18" height="18">
+          <path d="M19 12H5"></path>
+          <path d="M12 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="menu-content">
+      <h1 class="menu-title">Footwear</h1>
+      <div class="shoe-grid">
+        <div class="shoe-option" data-model="SL01">01</div>
+        <div class="shoe-option" data-model="SL02">02</div>
+        <div class="shoe-option" data-model="SL03">03</div>
+        <div class="shoe-option" data-model="SL04">04</div>
+        <div class="shoe-option" data-model="SL05">05</div>
+      </div>
+    </div>
+    
+    <div id="date-display"></div>
+  </div>
+
+  <!-- Product Screen -->
+  <div id="product-screen">
+    <div id="container">
+      <div id="location-info">
+        <div id="city">Loading location...</div>
+      </div>
+
+      <div id="nav-container">
+        <div id="brand-container">
+          <div id="brand-title">Robin Gabriel Design</div>
+          <div id="nav-menu">
+            <a href="#contact">CONTACT</a>
+            <a href="#work">PRIVATE PORTFOLIO</a>
+            <a href="index.html">HOME</a>
+          </div>
+        </div>
+        <button id="back-to-menu" class="visible" aria-label="Back to menu">
+          <svg class="back-icon" viewBox="0 0 24 24" width="18" height="18">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- 3D Canvas -->
+      <canvas id="model-canvas"></canvas>
+
+      <!-- Horizontal Color & Material Panel -->
+      <div class="color-material-panel">
+        <!-- Color Section -->
+        <div class="color-section">
+          <div class="color-area" id="color-area">
+            <div class="color-thumb" id="area-thumb"></div>
+          </div>
+          <div class="color-slider" id="color-slider">
+            <div class="color-thumb" id="slider-thumb"></div>
+          </div>
+          <div class="color-swatch" id="color-swatch"></div>
+        </div>
+
+        <!-- Material Section -->
+        <div class="material-section">
+          <div class="control-group">
+            <span class="control-label">Smoothness</span>
+            <input type="range" class="control-slider" id="smoothness-slider" min="0" max="100" value="50">
+            <span class="control-value" id="smoothness-value">50%</span>
+          </div>
+          <div class="control-group">
+            <span class="control-label">Metalness</span>
+            <input type="range" class="control-slider" id="metalness-slider" min="0" max="100" value="0">
+            <span class="control-value" id="metalness-value">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="date-display"></div>
     </div>
   </div>
 </div>
@@ -1146,9 +1070,9 @@
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/fflate.min.js"></script>
 
 <script>
-// 3D Design Application - Enhanced Version (NO TRANSPARENCY)
+// Enhanced 3D Design Application with Menu System
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('Enhanced 3D Design page loaded - No Transparency');
+  console.log('Enhanced 3D Design page loaded with Menu System');
   
   // Global variables
   let scene, camera, renderer, controls;
@@ -1158,16 +1082,20 @@ document.addEventListener('DOMContentLoaded', () => {
   let isMobile = window.innerWidth < 768;
   let isPortfolioOpen = false;
   let isContactOpen = false;
+  let isInProductView = false;
   
   // DOM elements
+  const mainContainer = document.getElementById('main-container');
   const loadingElement = document.getElementById('loading');
-  const cityElement = document.getElementById('city');
-  const dateElement = document.getElementById('date-display');
+  const cityElements = document.querySelectorAll('#city');
+  const dateElements = document.querySelectorAll('#date-display');
   const backHome = document.getElementById('back-home');
+  const backToMenu = document.getElementById('back-to-menu');
   const modelCanvas = document.getElementById('model-canvas');
   const container = document.getElementById('container');
   const portfolioPanel = document.getElementById('portfolio-panel');
   const contactPanel = document.getElementById('contact-panel');
+  const shoeOptions = document.querySelectorAll('.shoe-option');
   
   // Initialize
   init();
@@ -1177,20 +1105,44 @@ document.addEventListener('DOMContentLoaded', () => {
     initScene();
     initColorPicker();
     initMaterialControls();
-    initModelSelection();
     initEventListeners();
     getUserLocation();
-    initDraggableColorPicker();
     
-    // Load initial model
-    loadFBXModel('SL02');
-    
-    animate();
+    // Hide loading after initialization
+    setTimeout(() => {
+      loadingElement.style.display = 'none';
+    }, 1000);
   }
   
   function checkMobile() {
     isMobile = window.innerWidth < 768;
     console.log(`Device detected as ${isMobile ? 'mobile' : 'desktop'}`);
+  }
+  
+  function showProductView(modelName) {
+    isInProductView = true;
+    mainContainer.classList.add('show-product');
+    
+    // Load the selected model
+    loadFBXModel(modelName);
+    
+    // Start animation loop
+    animate();
+    
+    console.log(`Showing product view for ${modelName}`);
+  }
+  
+  function showMenuView() {
+    isInProductView = false;
+    mainContainer.classList.remove('show-product');
+    
+    // Remove current model
+    if (currentModel) {
+      scene.remove(currentModel);
+      currentModel = null;
+    }
+    
+    console.log('Showing menu view');
   }
   
   function initScene() {
@@ -1286,7 +1238,9 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`${modelName} loaded successfully`);
         
         // Remove loading indicator
-        document.body.removeChild(modelLoading);
+        if (document.body.contains(modelLoading)) {
+          document.body.removeChild(modelLoading);
+        }
         
         // Process the loaded model
         currentModel = fbx;
@@ -1312,7 +1266,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         
         scene.add(currentModel);
-        loadingElement.style.display = 'none';
         
         console.log(`${modelName} added to scene`);
       },
@@ -1328,7 +1281,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         console.log('Creating enhanced fallback geometry');
         createEnhancedFallbackModel(modelName);
-        loadingElement.style.display = 'none';
       }
     );
   }
@@ -1336,108 +1288,222 @@ document.addEventListener('DOMContentLoaded', () => {
   function createEnhancedFallbackModel(modelName) {
     const group = new THREE.Group();
     
-    if (modelName === 'SL02') {
-      // Enhanced futuristic shoe with better geometry
-      const mainGeometry = new THREE.CapsuleGeometry(0.4, 2.0, 12, 24);
-      const mainMaterial = new THREE.MeshStandardMaterial({
-        color: currentColor,
-        metalness: 0.1,
-        roughness: 0.6,
-        envMapIntensity: 1.0,
-        transparent: false,  // NO TRANSPARENCY
-        opacity: 1.0         // ALWAYS OPAQUE
-      });
-      const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
-      mainMesh.rotation.z = Math.PI / 2;
-      mainMesh.scale.set(1, 1, 0.7);
-      group.add(mainMesh);
-      
-      // Enhanced perforations with better positioning
-      for (let i = 0; i < 12; i++) {
-        const holeGeometry = new THREE.CylinderGeometry(0.06, 0.06, 0.6, 8);
-        const holeMaterial = new THREE.MeshStandardMaterial({
-          color: 0x222222,
-          metalness: 0.8,
-          roughness: 0.2,
-          transparent: false,  // NO TRANSPARENCY
-          opacity: 1.0         // ALWAYS OPAQUE
-        });
-        const hole = new THREE.Mesh(holeGeometry, holeMaterial);
-        
-        const angle = (i / 12) * Math.PI * 2;
-        hole.position.set(
-          Math.cos(angle) * 0.3,
-          Math.sin(angle) * 0.15,
-          Math.sin(i * 0.8) * 0.2
-        );
-        hole.rotation.x = Math.PI / 2;
-        group.add(hole);
-      }
-      
-      // Add sole detail
-      const soleGeometry = new THREE.BoxGeometry(2.2, 0.15, 0.8);
-      const soleMaterial = new THREE.MeshStandardMaterial({
-        color: 0x333333,
-        metalness: 0.1,
-        roughness: 0.9,
-        transparent: false,  // NO TRANSPARENCY
-        opacity: 1.0         // ALWAYS OPAQUE
-      });
-      const sole = new THREE.Mesh(soleGeometry, soleMaterial);
-      sole.position.set(0, -0.4, 0);
-      group.add(sole);
-      
-    } else if (modelName === 'SL03') {
-      // Enhanced boot-style shoe
-      const bootGeometry = new THREE.CylinderGeometry(0.35, 0.4, 2.2, 12);
-      const bootMaterial = new THREE.MeshStandardMaterial({
-        color: currentColor,
-        metalness: 0.05,
-        roughness: 0.8,
-        envMapIntensity: 0.8,
-        transparent: false,  // NO TRANSPARENCY
-        opacity: 1.0         // ALWAYS OPAQUE
-      });
-      const bootMesh = new THREE.Mesh(bootGeometry, bootMaterial);
-      bootMesh.rotation.z = Math.PI / 2;
-      bootMesh.position.set(0, 0.1, 0);
-      bootMesh.scale.set(1, 1, 0.75);
-      group.add(bootMesh);
-
-      // Enhanced sole with texture
-      const soleGeometry = new THREE.BoxGeometry(2.4, 0.2, 0.8);
-      const soleMaterial = new THREE.MeshStandardMaterial({
-        color: 0x2a2a2a,
-        metalness: 0.1,
-        roughness: 0.95,
-        transparent: false,  // NO TRANSPARENCY
-        opacity: 1.0         // ALWAYS OPAQUE
-      });
-      const sole = new THREE.Mesh(soleGeometry, soleMaterial);
-      sole.position.set(0, -0.5, 0);
-      group.add(sole);
-
-      // Add lace details
-      for (let i = 0; i < 6; i++) {
-        const laceGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3, 6);
-        const laceMaterial = new THREE.MeshStandardMaterial({
-          color: 0x444444,
-          metalness: 0.2,
-          roughness: 0.8,
-          transparent: false,  // NO TRANSPARENCY
-          opacity: 1.0         // ALWAYS OPAQUE
-        });
-        const lace = new THREE.Mesh(laceGeometry, laceMaterial);
-        lace.position.set(-0.6 + (i * 0.2), 0.2, 0.35);
-        lace.rotation.x = Math.PI / 2;
-        group.add(lace);
-      }
+    // Create different shoe designs based on model number
+    const modelNumber = parseInt(modelName.replace('SL', ''));
+    
+    switch(modelNumber) {
+      case 1:
+        createSneakerModel(group);
+        break;
+      case 2:
+        createRunningShoeModel(group);
+        break;
+      case 3:
+        createBootModel(group);
+        break;
+      case 4:
+        createDressShoeModel(group);
+        break;
+      case 5:
+        createHighTopModel(group);
+        break;
+      default:
+        createSneakerModel(group);
     }
     
     currentModel = group;
     scene.add(currentModel);
     
     console.log(`Enhanced fallback model ${modelName} created`);
+  }
+  
+  function createSneakerModel(group) {
+    // Main shoe body
+    const mainGeometry = new THREE.CapsuleGeometry(0.4, 2.0, 12, 24);
+    const mainMaterial = new THREE.MeshStandardMaterial({
+      color: currentColor,
+      metalness: 0.1,
+      roughness: 0.6,
+      envMapIntensity: 1.0,
+      transparent: false,
+      opacity: 1.0
+    });
+    const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
+    mainMesh.rotation.z = Math.PI / 2;
+    mainMesh.scale.set(1, 1, 0.7);
+    group.add(mainMesh);
+    
+    // Sole
+    const soleGeometry = new THREE.BoxGeometry(2.2, 0.15, 0.8);
+    const soleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x333333,
+      metalness: 0.1,
+      roughness: 0.9,
+      transparent: false,
+      opacity: 1.0
+    });
+    const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+    sole.position.set(0, -0.4, 0);
+    group.add(sole);
+    
+    // Laces
+    for (let i = 0; i < 6; i++) {
+      const laceGeometry = new THREE.CylinderGeometry(0.02, 0.02, 0.3, 6);
+      const laceMaterial = new THREE.MeshStandardMaterial({
+        color: 0x444444,
+        metalness: 0.2,
+        roughness: 0.8,
+        transparent: false,
+        opacity: 1.0
+      });
+      const lace = new THREE.Mesh(laceGeometry, laceMaterial);
+      lace.position.set(-0.6 + (i * 0.2), 0.2, 0.35);
+      lace.rotation.x = Math.PI / 2;
+      group.add(lace);
+    }
+  }
+  
+  function createRunningShoeModel(group) {
+    // Streamlined body
+    const mainGeometry = new THREE.CapsuleGeometry(0.35, 2.1, 16, 32);
+    const mainMaterial = new THREE.MeshStandardMaterial({
+      color: currentColor,
+      metalness: 0.1,
+      roughness: 0.6,
+      envMapIntensity: 1.0,
+      transparent: false,
+      opacity: 1.0
+    });
+    const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
+    mainMesh.rotation.z = Math.PI / 2;
+    mainMesh.scale.set(1, 1, 0.65);
+    group.add(mainMesh);
+    
+    // Athletic sole
+    const soleGeometry = new THREE.BoxGeometry(2.3, 0.2, 0.75);
+    const soleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x222222,
+      metalness: 0.1,
+      roughness: 0.9,
+      transparent: false,
+      opacity: 1.0
+    });
+    const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+    sole.position.set(0, -0.45, 0);
+    group.add(sole);
+    
+    // Air vents
+    for (let i = 0; i < 8; i++) {
+      const ventGeometry = new THREE.CylinderGeometry(0.04, 0.04, 0.5, 8);
+      const ventMaterial = new THREE.MeshStandardMaterial({
+        color: 0x666666,
+        metalness: 0.8,
+        roughness: 0.2,
+        transparent: false,
+        opacity: 1.0
+      });
+      const vent = new THREE.Mesh(ventGeometry, ventMaterial);
+      const angle = (i / 8) * Math.PI * 2;
+      vent.position.set(
+        Math.cos(angle) * 0.25,
+        Math.sin(angle) * 0.1,
+        Math.sin(i * 0.5) * 0.15
+      );
+      vent.rotation.x = Math.PI / 2;
+      group.add(vent);
+    }
+  }
+  
+  function createBootModel(group) {
+    // Boot shaft
+    const bootGeometry = new THREE.CylinderGeometry(0.35, 0.4, 2.2, 12);
+    const bootMaterial = new THREE.MeshStandardMaterial({
+      color: currentColor,
+      metalness: 0.05,
+      roughness: 0.8,
+      envMapIntensity: 0.8,
+      transparent: false,
+      opacity: 1.0
+    });
+    const bootMesh = new THREE.Mesh(bootGeometry, bootMaterial);
+    bootMesh.rotation.z = Math.PI / 2;
+    bootMesh.position.set(0, 0.1, 0);
+    bootMesh.scale.set(1, 1, 0.75);
+    group.add(bootMesh);
+
+    // Heavy sole
+    const soleGeometry = new THREE.BoxGeometry(2.4, 0.25, 0.85);
+    const soleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x2a2a2a,
+      metalness: 0.1,
+      roughness: 0.95,
+      transparent: false,
+      opacity: 1.0
+    });
+    const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+    sole.position.set(0, -0.5, 0);
+    group.add(sole);
+  }
+  
+  function createDressShoeModel(group) {
+    // Elegant body
+    const mainGeometry = new THREE.CapsuleGeometry(0.3, 1.9, 16, 32);
+    const mainMaterial = new THREE.MeshStandardMaterial({
+      color: currentColor,
+      metalness: 0.3,
+      roughness: 0.4,
+      envMapIntensity: 1.2,
+      transparent: false,
+      opacity: 1.0
+    });
+    const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
+    mainMesh.rotation.z = Math.PI / 2;
+    mainMesh.scale.set(1, 1, 0.6);
+    group.add(mainMesh);
+    
+    // Thin sole
+    const soleGeometry = new THREE.BoxGeometry(2.0, 0.08, 0.65);
+    const soleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x1a1a1a,
+      metalness: 0.8,
+      roughness: 0.2,
+      transparent: false,
+      opacity: 1.0
+    });
+    const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+    sole.position.set(0, -0.35, 0);
+    group.add(sole);
+  }
+  
+  function createHighTopModel(group) {
+    // High top body
+    const mainGeometry = new THREE.CylinderGeometry(0.4, 0.45, 2.5, 12);
+    const mainMaterial = new THREE.MeshStandardMaterial({
+      color: currentColor,
+      metalness: 0.1,
+      roughness: 0.7,
+      envMapIntensity: 1.0,
+      transparent: false,
+      opacity: 1.0
+    });
+    const mainMesh = new THREE.Mesh(mainGeometry, mainMaterial);
+    mainMesh.rotation.z = Math.PI / 2;
+    mainMesh.position.set(0, 0.2, 0);
+    mainMesh.scale.set(1, 1, 0.7);
+    group.add(mainMesh);
+
+    // Platform sole
+    const soleGeometry = new THREE.BoxGeometry(2.3, 0.3, 0.8);
+    const soleMaterial = new THREE.MeshStandardMaterial({
+      color: 0x333333,
+      metalness: 0.1,
+      roughness: 0.9,
+      transparent: false,
+      opacity: 1.0
+    });
+    const sole = new THREE.Mesh(soleGeometry, soleMaterial);
+    sole.position.set(0, -0.6, 0);
+    group.add(sole);
   }
   
   function updateModelMaterial() {
@@ -1457,7 +1523,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const areaThumb = document.getElementById('area-thumb');
     const sliderThumb = document.getElementById('slider-thumb');
     const colorSwatch = document.getElementById('color-swatch');
-    const colorHex = document.getElementById('color-hex');
     
     let isDraggingArea = false;
     let isDraggingSlider = false;
@@ -1468,7 +1533,6 @@ document.addEventListener('DOMContentLoaded', () => {
       
       const hex = '#' + currentColor.getHexString().toUpperCase();
       colorSwatch.style.backgroundColor = hex;
-      colorHex.textContent = hex;
       
       updateModelMaterial();
     }
@@ -1618,23 +1682,12 @@ document.addEventListener('DOMContentLoaded', () => {
           if (child.isMesh && child.material) {
             child.material.metalness = value / 100;
             child.material.needsUpdate = true;
+          
+            child.material.metalness = value / 100;
+            child.material.needsUpdate = true;
           }
         });
       }
-    });
-  }
-  
-  function initModelSelection() {
-    const thumbnails = document.querySelectorAll('.model-thumbnail');
-    
-    thumbnails.forEach(thumbnail => {
-      thumbnail.addEventListener('click', () => {
-        thumbnails.forEach(t => t.classList.remove('active'));
-        thumbnail.classList.add('active');
-        
-        const modelName = thumbnail.dataset.model;
-        loadFBXModel(modelName);
-      });
     });
   }
   
@@ -1701,6 +1754,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function initEventListeners() {
+    // Shoe selection from menu
+    shoeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        const modelName = option.dataset.model;
+        showProductView(modelName);
+      });
+    });
+    
+    // Back to menu
+    backToMenu.addEventListener('click', () => {
+      showMenuView();
+    });
+    
+    // Back to home
     backHome.addEventListener('click', () => {
       window.location.href = 'index.html';
     });
@@ -1819,9 +1886,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
+    if (isInProductView) {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
   }
   
   function getUserLocation() {
@@ -1830,12 +1899,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const parts = timezone.split('/');
       const city = parts[parts.length - 1].replace(/_/g, ' ');
       
-      cityElement.textContent = city;
+      cityElements.forEach(el => {
+        el.textContent = city;
+      });
+      
       updateDate();
       setInterval(updateDate, 1000);
     } catch (error) {
       console.error('Error getting location:', error);
-      cityElement.textContent = 'Location unavailable';
+      cityElements.forEach(el => {
+        el.textContent = 'Location unavailable';
+      });
     }
   }
   
@@ -1853,7 +1927,11 @@ document.addEventListener('DOMContentLoaded', () => {
       };
       
       const dateFormatter = new Intl.DateTimeFormat("en-US", dateOptions);
-      dateElement.textContent = dateFormatter.format(now);
+      const formattedDate = dateFormatter.format(now);
+      
+      dateElements.forEach(el => {
+        el.textContent = formattedDate;
+      });
     } catch (error) {
       console.error("Error updating date:", error);
     }
@@ -2005,89 +2083,6 @@ document.addEventListener('DOMContentLoaded', () => {
       passwordInput.value = '';
       passwordError.style.display = 'none';
     });
-  }
-  
-  function initDraggableColorPicker() {
-    const colorPicker = document.getElementById('color-picker-container');
-    const minimizeBtn = document.getElementById('minimize-btn');
-    let isDragging = false;
-    let currentX;
-    let currentY;
-    let initialX;
-    let initialY;
-    let xOffset = 0;
-    let yOffset = 0;
-
-    // Enhanced minimize/maximize functionality - FIXED FOR MOBILE
-    minimizeBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      e.preventDefault();
-      
-      const isMinimized = colorPicker.classList.contains('minimized');
-      
-      if (isMinimized) {
-        colorPicker.classList.remove('minimized');
-        minimizeBtn.textContent = '−';
-        console.log('Color picker expanded');
-      } else {
-        colorPicker.classList.add('minimized');
-        minimizeBtn.textContent = '+';
-        console.log('Color picker minimized');
-      }
-    });
-
-    // Enhanced dragging functionality with touch support
-    colorPicker.addEventListener('mousedown', dragStart);
-    colorPicker.addEventListener('touchstart', dragStart, { passive: false });
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag, { passive: false });
-    document.addEventListener('mouseup', dragEnd);
-    document.addEventListener('touchend', dragEnd);
-
-    function dragStart(e) {
-      if (e.target.closest('.color-picker-header') && !e.target.closest('.minimize-btn')) {
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
-        initialX = clientX - xOffset;
-        initialY = clientY - yOffset;
-
-        isDragging = true;
-        colorPicker.style.cursor = 'grabbing';
-        e.preventDefault();
-      }
-    }
-
-    function drag(e) {
-      if (isDragging) {
-        e.preventDefault();
-        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        
-        currentX = clientX - initialX;
-        currentY = clientY - initialY;
-
-        xOffset = currentX;
-        yOffset = currentY;
-
-        // Enhanced boundary checking
-        const rect = colorPicker.getBoundingClientRect();
-        const maxX = window.innerWidth - rect.width;
-        const maxY = window.innerHeight - rect.height;
-
-        xOffset = Math.max(0, Math.min(maxX, xOffset));
-        yOffset = Math.max(0, Math.min(maxY, yOffset));
-
-        colorPicker.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-      }
-    }
-
-    function dragEnd() {
-      initialX = currentX;
-      initialY = currentY;
-      isDragging = false;
-      colorPicker.style.cursor = 'move';
-    }
   }
 });
 
